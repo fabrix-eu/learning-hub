@@ -5,6 +5,7 @@ import { assetUrl, toolsQueryOptions } from '../lib/directus';
 import { RESOURCE_LABELS, languageLabel, resourceLabel } from '../lib/taxonomy';
 import type { ResourceKind } from '../lib/types';
 import { FilterChips } from '../components/FilterChips';
+import { useDocumentTitle } from '../lib/useDocumentTitle';
 
 export interface ToolsSearch {
   kind?: ResourceKind;
@@ -30,8 +31,17 @@ export function ToolsPage() {
   const navigate = useNavigate({ from: '/tools' });
   const { data: tools } = useSuspenseQuery(toolsQueryOptions());
 
-  const shown = search.kind ? tools.filter((tool) => tool.kind === search.kind) : tools;
-  const kinds = [...new Set(tools.map((tool) => tool.kind))];
+  useDocumentTitle('Tools & templates');
+
+  // Downloads before recordings, then alphabetical — a stable, scannable order
+  // rather than whatever Directus returns.
+  const ordered = [...tools].sort(
+    (a, b) =>
+      Number(a.kind === 'video') - Number(b.kind === 'video') ||
+      toolTitle(a).localeCompare(toolTitle(b)),
+  );
+  const shown = search.kind ? ordered.filter((tool) => tool.kind === search.kind) : ordered;
+  const kinds = [...new Set(ordered.map((tool) => tool.kind))];
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-10">

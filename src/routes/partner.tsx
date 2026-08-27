@@ -4,11 +4,14 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { PLATFORM_URL, partnerQueryOptions, topicsQueryOptions } from '../lib/directus';
 import type { Partner } from '../lib/types';
 import { TopicCard } from '../components/TopicCard';
+import { useDocumentTitle } from '../lib/useDocumentTitle';
 
 export function PartnerPage() {
   const { key } = useParams({ from: '/partners/$key' });
   const { data: partner } = useSuspenseQuery(partnerQueryOptions(key));
   const { data: topics } = useSuspenseQuery(topicsQueryOptions());
+
+  useDocumentTitle(partner.name, partner.blurb ?? undefined);
 
   const theirs = topics.filter((topic) => (topic.partner as Partner)?.key === key);
 

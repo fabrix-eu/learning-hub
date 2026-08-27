@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { Link, useParams } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeft, ArrowUpRight, ChevronRight, Clock, ExternalLink } from 'lucide-react';
 import { PLATFORM_URL, topicQueryOptions } from '../lib/directus';
+import { useDocumentTitle } from '../lib/useDocumentTitle';
 import { audienceLabel, typeLabel } from '../lib/taxonomy';
 import type { Author, Category, Partner } from '../lib/types';
 import { Chip } from '../components/Chip';
@@ -21,11 +21,7 @@ export function TopicPage() {
   const downloads = topic.resources?.filter((r) => r !== video) ?? [];
   const related = (topic.related ?? []).map((r) => r.related_topics_id).filter(Boolean);
 
-  // The prerender step reads these; in the browser they keep shares accurate.
-  useEffect(() => {
-    document.title = `${topic.title} · FABRIX Learning Hub`;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', topic.summary);
-  }, [topic.title, topic.summary]);
+  useDocumentTitle(topic.title, topic.summary);
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-8">

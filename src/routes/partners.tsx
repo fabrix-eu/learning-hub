@@ -2,10 +2,13 @@ import { Link } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { partnersQueryOptions, topicsQueryOptions } from '../lib/directus';
 import type { Partner } from '../lib/types';
+import { useDocumentTitle } from '../lib/useDocumentTitle';
 
 export function PartnersPage() {
   const { data: partners } = useSuspenseQuery(partnersQueryOptions());
   const { data: topics } = useSuspenseQuery(topicsQueryOptions());
+
+  useDocumentTitle('Partners');
 
   const count = (key: string) => topics.filter((t) => (t.partner as Partner)?.key === key).length;
 

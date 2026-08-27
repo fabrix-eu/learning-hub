@@ -8,6 +8,7 @@ import type { Audience, Category, Topic, TopicType } from '../lib/types';
 import { CategoryIcon } from '../components/CategoryIcon';
 import { FilterChips } from '../components/FilterChips';
 import { TopicCard } from '../components/TopicCard';
+import { useDocumentTitle } from '../lib/useDocumentTitle';
 
 export interface HubSearch {
   for?: Audience;
@@ -24,6 +25,8 @@ export function HubPage() {
   const navigate = useNavigate({ from: '/' });
   const { data: topics } = useSuspenseQuery(topicsQueryOptions());
   const { data: categories } = useSuspenseQuery(categoriesQueryOptions());
+
+  useDocumentTitle();
 
   /** Every filter is a URL search param, so a filtered view is a shareable link. */
   const set = (patch: Partial<HubSearch>) =>
