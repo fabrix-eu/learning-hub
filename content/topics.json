@@ -1,0 +1,289 @@
+{
+  "_comment": "Hand-curated metadata for the 17 partner contributions. Body/summary/external links are extracted from the .docx by scripts/extract-docx.js; everything here is read off the gabarit header table, which is laid out differently by every partner.",
+  "source_root": "/Users/thb/MEGAsync/roadmapper_files/clients/fabrix/Contents by partner",
+  "partners": [
+    { "key": "aidimme", "name": "AIDIMME Technological Institute", "short": "AIDIMME", "country": "ES", "city": "Valencia", "blurb": "Technological institute for metal, furniture, wood, packaging and related sectors, working on carbon accounting, digital product passports and Industry 4.0 for manufacturers." },
+    { "key": "aueb", "name": "Athens University of Economics and Business", "short": "AUEB", "country": "GR", "city": "Athens", "blurb": "Research and teaching on circular business models, supply-chain management and digital design tools for the textile and clothing sector." },
+    { "key": "soffa", "name": "SOFFA — Social Fashion Factory", "short": "SOFFA", "country": "GR", "city": "Athens", "blurb": "Social enterprise running the Athens circular fashion ecosystem: matchmaking, awards, hackathons and showcasing events for local makers." },
+    { "key": "tcbl", "name": "Cedecs-TCBL", "short": "TCBL", "country": "IT", "city": "Florence", "blurb": "The Textile and Clothing Business Labs network — local production, industrial symbiosis and communication practice for European textile SMEs." },
+    { "key": "eur", "name": "Erasmus University Rotterdam", "short": "EUR", "country": "NL", "city": "Rotterdam", "blurb": "Research on cultural and creative industries, circular economy transitions and the spatial mapping of urban sectors." },
+    { "key": "ten-million-hands", "name": "Ten Million Hands", "short": "Ten Million Hands", "country": "GR", "city": "Athens", "blurb": "Policy lab and advocacy organisation translating EU sustainability regulation into practice for fashion SMEs." }
+  ],
+  "categories": [
+    { "key": "business_development", "label": "Business development", "label_short": "Business & viability", "accent": "amber", "icon": "trending-up", "sort": 1, "blurb": "Models, growth decisions, digital tools and the regulation that shapes them." },
+    { "key": "circular_urban_production", "label": "Circular urban production", "label_short": "Circular production", "accent": "green", "icon": "recycle", "sort": 2, "blurb": "Designing and making so that materials keep their value." },
+    { "key": "urban_industry_design", "label": "Urban industry design", "label_short": "Urban industry design", "accent": "teal", "icon": "factory", "sort": 3, "blurb": "Producing in and for the city: footprint, proximity, shared resources." },
+    { "key": "business_networks_communities", "label": "Business networks and communities", "label_short": "Networks & communities", "accent": "rose", "icon": "users", "sort": 4, "blurb": "Facilitation, events and the collaborations they produce." },
+    { "key": "mapping", "label": "Mapping", "label_short": "Mapping", "accent": "indigo", "icon": "map", "sort": 5, "blurb": "Finding out where the sector actually is, and what that tells you." }
+  ],
+  "topics": [
+    {
+      "slug": "what-is-circular-economy",
+      "source": "EUR drafts - WIP/Learning Hub contribution 2 - CE.docx",
+      "title": "What is circular economy?",
+      "category": "business_development",
+      "type": "explainer",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "eur",
+      "authors": ["Young Kim", "Mariangela Lavanga", "Amanda Brandellero"],
+      "status": "in_review",
+      "featured": true,
+      "compass_modules": ["ecodesign", "env-mngmt"],
+      "resources": []
+    },
+    {
+      "slug": "circular-business-models-textile-clothing",
+      "source": "LH_AUEB_Circularbusinessmodels/LH_AUEB_circular business models for tc.docx",
+      "title": "Circular Business Models for Textile & Clothing",
+      "category": "business_development",
+      "type": "guide",
+      "audiences": ["sme", "facilitator"],
+      "partner": "aueb",
+      "authors": ["Alexandros Papalexandris"],
+      "status": "published",
+      "featured": true,
+      "compass_modules": ["technology-business-model-innovation", "ecodesign"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the webinar", "url": "https://www.youtube.com/watch?v=crIMcFXK3pI", "language": "en" },
+        { "kind": "canvas", "cta_label": "Download the Business Model Canvas", "file": "LH_AUEB_Circularbusinessmodels/Business Model Canvas for a Circular Textile Manufacturing Company.pdf", "language": "en" },
+        { "kind": "canvas", "cta_label": "Download the editable worksheet", "file": "LH_AUEB_Circularbusinessmodels/Business Model Canvas for a Circular Textile Manufacturing Company.docx", "language": "en" },
+        { "kind": "diagram", "cta_label": "Circular business models diagram", "file": "LH_AUEB_Circularbusinessmodels/circular business models diagram.png", "language": "en" }
+      ]
+    },
+    {
+      "slug": "to-scale-or-not-to-scale-an-urban-sme",
+      "source": "LH_SOFFA_scaling business/LH_Soffa_Scaling.docx",
+      "title": "To scale or not to scale an urban SME",
+      "category": "business_development",
+      "type": "explainer",
+      "audiences": ["sme"],
+      "partner": "soffa",
+      "authors": ["Dr Fiori Zafeiropoulou"],
+      "status": "published",
+      "featured": true,
+      "compass_modules": ["business-maturity"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the webinar", "url": "https://www.youtube.com/watch?v=3Uy8y3oX9u8", "language": "en" },
+        { "kind": "template", "cta_label": "Download the strategic choice matrix", "file": "LH_SOFFA_scaling business/Scaling_strategic-choice-matrix.pdf", "language": "en" }
+      ]
+    },
+    {
+      "slug": "digital-communication-for-fashion-smes",
+      "source": "LH_TCBL_communication.docx",
+      "title": "Digital communication for fashion SMEs",
+      "category": "business_development",
+      "type": "guide",
+      "audiences": ["sme"],
+      "partner": "tcbl",
+      "authors": ["Alexandra Korey"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["distribution-retail-service", "technology-business-model-innovation"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the video", "url": "https://youtu.be/3SbyNDafxmo", "language": "en" },
+        { "kind": "slides", "cta_label": "Download the slides", "url": null, "language": "en", "_todo": "PowerPoint referenced in the gabarit but not present in the source folder — ask TCBL" }
+      ]
+    },
+    {
+      "slug": "digital-product-passport",
+      "source": "LH_Aidimme_Digitalproductpassport.docx",
+      "title": "Digital Product Passport: a strategic framework for the textile value chain",
+      "category": "business_development",
+      "type": "explainer",
+      "audiences": ["sme"],
+      "partner": "aidimme",
+      "authors": ["Ana Hurtado"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["supply-chain-management", "technology-business-model-innovation"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the webinar", "url": "https://www.youtube.com/watch?v=f776Yx_YFn4", "language": "en" }
+      ]
+    },
+    {
+      "slug": "industry-4-0",
+      "source": "LH_Aidimme_industry 4.0_V2.docx",
+      "title": "Industry 4.0",
+      "category": "business_development",
+      "type": "explainer",
+      "audiences": ["sme", "facilitator"],
+      "partner": "aidimme",
+      "authors": ["Lucía Jordá Ferrando"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["manufacturing", "technology-business-model-innovation"],
+      "resources": []
+    },
+    {
+      "slug": "navigating-eu-sustainable-textile-regulations",
+      "source": "LH_10Millionhands_EU policy regulation changes.docx",
+      "title": "Navigating the EU Sustainable Textile Regulations: a guide for fashion SMEs",
+      "category": "circular_urban_production",
+      "type": "guide",
+      "audiences": ["sme", "facilitator"],
+      "partner": "ten-million-hands",
+      "authors": ["Nicholas Yatromanolakis"],
+      "co_contributors": "Policy Lab",
+      "status": "published",
+      "featured": true,
+      "compass_modules": ["env-mngmt", "supply-chain-management"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the webinar", "url": "https://www.youtube.com/watch?v=kvzSgG7zwP4", "language": "el" }
+      ]
+    },
+    {
+      "slug": "ban-on-destruction-of-goods",
+      "source": "LH_Aidimme_Ban on destruction of goods.docx",
+      "title": "The ban on destruction of goods as an opportunity for SMEs",
+      "category": "circular_urban_production",
+      "type": "explainer",
+      "audiences": ["sme"],
+      "partner": "aidimme",
+      "authors": ["Ángel Marcos Vicente"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["env-mngmt", "distribution-retail-service"],
+      "resources": [
+        { "kind": "video", "cta_label": "Watch the webinar", "url": "https://www.youtube.com/watch?v=xwY_0E2xQJ4", "language": "en" }
+      ]
+    },
+    {
+      "slug": "3d-fashion-design-for-the-supply-chain",
+      "source": "LH_AUEB_3Dfashion/LH_AUEB_3D fashion.docx",
+      "title": "3D fashion design for the supply chain",
+      "category": "circular_urban_production",
+      "type": "guide",
+      "audiences": ["sme"],
+      "partner": "aueb",
+      "authors": ["Stamatoula (Tia) Bilali"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["ecodesign", "manufacturing"],
+      "resources": [
+        { "kind": "roadmap", "cta_label": "Download the 3D adoption roadmap", "file": "LH_AUEB_3Dfashion/3droadmap_download.pdf", "language": "en" },
+        { "kind": "diagram", "cta_label": "Conventional sampling vs 3D digital route", "file": "LH_AUEB_3Dfashion/Conventional sampling loop vs 3D enabled digital route.png", "language": "en" },
+        { "kind": "report", "cta_label": "Academic analysis (appendix)", "file": "LH_AUEB_3Dfashion/Appendix_academic analysis.docx", "language": "en" }
+      ]
+    },
+    {
+      "slug": "measuring-your-carbon-footprint",
+      "source": "LH_Aidimme_Carbon Footprint.docx",
+      "title": "Measuring and improving your carbon footprint in urban businesses",
+      "category": "urban_industry_design",
+      "type": "guide",
+      "audiences": ["sme"],
+      "partner": "aidimme",
+      "authors": ["Ángel Marcos Vicente"],
+      "status": "published",
+      "featured": true,
+      "compass_modules": ["env-mngmt"],
+      "resources": []
+    },
+    {
+      "slug": "local-production-as-business-strategy",
+      "source": "LH_TCBL_local production/LH_TCBL_Local Production.docx",
+      "title": "Local production as business strategy",
+      "category": "urban_industry_design",
+      "type": "explainer",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "tcbl",
+      "authors": ["Frédérique Thureau"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["supply-chain-management", "manufacturing"],
+      "resources": [
+        { "kind": "template", "cta_label": "Download the relocation roadmap template", "file": "LH_TCBL_local production/LH_TCBL_Local-production_Industrial Symbiosis and Urban relocation production roadmap template.docx", "language": "en" }
+      ]
+    },
+    {
+      "slug": "industrial-symbiosis-definition-and-roadmap",
+      "source": "LH_TCBL_IndustrialSymbiosis_DRAFT.docx",
+      "title": "Industrial symbiosis: definition and roadmap",
+      "category": "urban_industry_design",
+      "type": "explainer",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "tcbl",
+      "authors": [],
+      "status": "draft",
+      "featured": false,
+      "compass_modules": ["manufacturing", "env-mngmt"],
+      "resources": []
+    },
+    {
+      "slug": "the-role-of-the-facilitator",
+      "source": "EUR drafts - WIP/Learning Hub contribution 1 - Facilitator.docx",
+      "title": "The role of the facilitator in business communities",
+      "category": "business_networks_communities",
+      "type": "explainer",
+      "audiences": ["facilitator"],
+      "partner": "eur",
+      "authors": ["Young Kim", "Mariangela Lavanga", "Amanda Brandellero"],
+      "status": "in_review",
+      "featured": false,
+      "compass_modules": ["social-capital"],
+      "resources": []
+    },
+    {
+      "slug": "designing-a-hackathon",
+      "source": "LH_SOFFA_Event_Methodologies_Hackathon/FX_LH_Methodology_Hackathon_SOFFA.docx",
+      "title": "Community events: designing a hackathon",
+      "category": "business_networks_communities",
+      "type": "method",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "soffa",
+      "authors": ["Yiannis Fronimopoulos"],
+      "co_contributors": "Fashion Revolution Greece, Impact Hub Athens",
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["social-capital"],
+      "resources": []
+    },
+    {
+      "slug": "showcasing-events",
+      "source": "LH_SOFFA_Event_Methodologies_Showcasing/FX_LH_Methodology_Showcasing_Event_SOFFA.docx",
+      "title": "Community events: showcasing events",
+      "category": "business_networks_communities",
+      "type": "method",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "soffa",
+      "authors": ["Yiannis Fronimopoulos"],
+      "co_contributors": "Fashion Revolution Greece",
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["social-capital", "distribution-retail-service"],
+      "resources": []
+    },
+    {
+      "slug": "case-studies-awarded-smes-collaborations",
+      "source": null,
+      "title": "From matchmaking to material change: ten awarded Athens SMEs",
+      "category": "business_networks_communities",
+      "type": "case",
+      "audiences": ["facilitator", "research"],
+      "partner": "soffa",
+      "authors": ["Dr Fiori A. Zafeiropoulou"],
+      "status": "published",
+      "featured": false,
+      "compass_modules": ["social-capital", "business-maturity"],
+      "summary": "A portfolio of the ten Athens SMEs awarded through FABRIX WP4 and the collaborations their matchmaking produced — circular products, digital demonstrators and next-stage partnerships, each with its outcome pathway and evidence level.",
+      "body_html": "<p>FABRIX WP4 ran a matchmaking process in Athens: local makers, recyclers and designers were paired around a shared problem, then supported to turn the pairing into something that ships. Ten of those collaborations were awarded.</p><p>This portfolio documents each of them — what the SME does, who it was matched with, what the collaboration produced, and how far it got. The outcome pathway and evidence levels used throughout let you read the portfolio critically: some entries are finished products, others are demonstrators, and the report says which is which.</p><p>It is written for facilitators designing their own matchmaking process, and for researchers looking for evidence of what activation actually yields.</p>",
+      "resources": [
+        { "kind": "report", "cta_label": "Read the full portfolio", "file": "LH_SOFFA_Case study of awarded SMEs and of Collaborations/FX LH Case Studies SMEs n' Collaborations SOFFA.pdf", "language": "en" }
+      ]
+    },
+    {
+      "slug": "how-mapping-works-rotterdam",
+      "source": "EUR drafts - WIP/Learning Hub contribution 3 - Mapping.docx",
+      "title": "How mapping works: the Rotterdam example",
+      "category": "mapping",
+      "type": "case",
+      "audiences": ["sme", "facilitator", "research"],
+      "partner": "eur",
+      "authors": ["Young Kim", "Mariangela Lavanga", "Amanda Brandellero"],
+      "status": "in_review",
+      "featured": false,
+      "compass_modules": ["social-capital"],
+      "resources": []
+    }
+  ]
+}

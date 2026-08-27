@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/*
+ * Tokens are the FABRIX design system, transcribed from
+ * FABRIX-proto/reference/CROSSWALK_token_v1.md. The hub and the platform must
+ * read as the same product — do not re-pick these values here.
+ */
+
+@font-face {
+  font-family: "Archia";
+  src: url("/fonts/Archia-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/IBMPlexSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/IBMPlexSans-Bold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-display: "Archia", "IBM Plex Sans", system-ui, sans-serif;
+
+  --color-bg: #ffffff;
+  --color-panel: #faf9fc;
+  --color-card: #ffffff;
+  --color-ink: #23232b;
+  --color-ink2: #5b5b66;
+  --color-muted: #9a9aa6;
+  --color-line: #ecebf0;
+  --color-line2: #e0dfe7;
+
+  --color-violet: #6c4cf1;
+  --color-violet-soft: #f1edff;
+  --color-violet-border: #ded5ff;
+  --color-violet-ink: #5a3ed6;
+
+  /* Category accents — one per editorial category, plus violet for "Most read". */
+  --color-green: #2fa36b;
+  --color-green-soft: #e4f4ec;
+  --color-amber: #b06f1c;
+  --color-amber-soft: #fbeede;
+  --color-teal: #2fa3a0;
+  --color-teal-soft: #e2f3f2;
+  --color-indigo: #5b53c9;
+  --color-indigo-soft: #eceaf9;
+  --color-rose: #d1568f;
+  --color-rose-soft: #fbe7f0;
+  --color-slate: #7b8494;
+  --color-slate-soft: #eef0f3;
+
+  /* 14px, not shadcn's 8px — the whole UI re-proportions if this changes. */
+  --radius-fx: 14px;
+  --radius-fx-sm: 9px;
+  --spacing-topbar: 58px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-panel);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-violet);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * The article body is partner-authored HTML out of Word: it arrives as bare
+ * h2/h3/p/ul/table, so it is styled here rather than by class.
+ */
+@layer components {
+  .fx-prose {
+    color: var(--color-ink2);
+    line-height: 1.68;
+  }
+  .fx-prose > * + * { margin-top: 1rem; }
+  .fx-prose h1, .fx-prose h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    margin-top: 2.4rem;
+  }
+  .fx-prose h3 {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    color: var(--color-ink);
+    margin-top: 1.8rem;
+  }
+  .fx-prose strong { font-weight: 600; color: var(--color-ink); }
+  .fx-prose a { color: var(--color-violet-ink); text-underline-offset: 2px; }
+  .fx-prose ul, .fx-prose ol { padding-left: 1.15rem; }
+  .fx-prose ul { list-style: disc; }
+  .fx-prose ol { list-style: decimal; }
+  .fx-prose li + li { margin-top: 0.4rem; }
+  .fx-prose li::marker { color: var(--color-violet-border); }
+  .fx-prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-fx);
+    border: 1px solid var(--color-line);
+  }
+  .fx-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    display: block;
+    overflow-x: auto;
+  }
+  .fx-prose th, .fx-prose td {
+    border: 1px solid var(--color-line);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .fx-prose th { background: var(--color-panel); color: var(--color-ink); font-weight: 600; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
