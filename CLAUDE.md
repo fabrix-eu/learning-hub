@@ -83,10 +83,19 @@ editing in Directus, the seeder is a one-way bootstrap, not a sync.
 
 ## Publishing a topic
 
-Editors work in Directus (`draft` → `in_review` → `published`). A Directus flow on
-`items.create/update` of `topics` calls GitHub `repository_dispatch` with type `content-updated`,
-which rebuilds and redeploys. Prerendering means published content must be **built** to be visible —
-saving in Directus alone is not enough.
+Editors work in Directus (`draft` → `in_review` → `published`), then press **Build & deploy** in the
+header of the `topics` collection. That is a manual Directus flow (`a32d72ec`) whose single operation
+POSTs `{"event_type":"content-updated"}` to GitHub's `repository_dispatch`, which runs this repo's
+Deploy workflow.
+
+**Prerendering means published content must be built to be visible** — saving in Directus alone
+changes nothing on the public site. That is deliberate: an editor finishes an article, then pushes
+it, rather than every keystroke-save triggering a deploy. It is also the failure mode to watch: if
+the flow breaks, Directus says "published" while the site stays frozen.
+
+The flow reads the GitHub PAT from `{{$env.GITHUB_DISPATCH_TOKEN}}`, which requires
+`FLOWS_ENV_ALLOW_LIST=GITHUB_DISPATCH_TOKEN` and the token itself in the container environment
+(`rdmpr-infra/apps/fabrix-cms/docker-compose.yml` + the `.env` on rdmpr-four).
 
 Content owner after the project's 2026 end: **Alexandra Korey (TCBL)**.
 
