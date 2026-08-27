@@ -74,11 +74,13 @@ const COLLECTIONS = [
         { text: "Explainer", value: "explainer" }, { text: "Guide", value: "guide" },
         { text: "Case study", value: "case" }, { text: "Method", value: "method" }, { text: "Tool", value: "tool" },
       ] } } },
-      { field: "audiences", type: "csv", meta: { interface: "select-multiple-checkbox", width: "half", options: { choices: [
+      // `special: cast-csv` is what makes Directus read this back as an array;
+      // without it the API returns a JSON string and every consumer breaks.
+      { field: "audiences", type: "csv", meta: { interface: "select-multiple-checkbox", special: ["cast-csv"], width: "half", options: { choices: [
         { text: "Organisations", value: "sme" }, { text: "Facilitators", value: "facilitator" }, { text: "Researchers & public administration", value: "research" },
       ] } } },
       { field: "co_contributors", type: "string", meta: { interface: "input", note: "The gabarit's 'Additional contributors' — often organisations outside the consortium." } },
-      { field: "compass_modules", type: "csv", meta: { interface: "select-multiple-checkbox", note: "Compass Assessment modules this topic routes to. Keys come from platform-back db/seeds/*_form.rb.", options: { choices: [
+      { field: "compass_modules", type: "csv", meta: { interface: "select-multiple-checkbox", special: ["cast-csv"], note: "Compass Assessment modules this topic routes to. Keys come from platform-back db/seeds/*_form.rb.", options: { choices: [
         "ecodesign", "env-mngmt", "manufacturing", "supply-chain-management",
         "social-capital", "distribution-retail-service", "technology-business-model-innovation", "business-maturity",
       ].map((v) => ({ text: v, value: v })) } } },

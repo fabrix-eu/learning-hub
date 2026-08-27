@@ -90,6 +90,14 @@ saving in Directus alone is not enough.
 
 Content owner after the project's 2026 end: **Alexandra Korey (TCBL)**.
 
+## CORS
+
+`back.fabrixproject.eu` allows `https://learn.fabrixproject.eu`, `http://localhost:5173` and
+`http://localhost:3000` (`CORS_ORIGIN` in `/home/deploy/docker/fabrix-cms/.env` on **rdmpr-four**,
+wired through `rdmpr-infra/apps/fabrix-cms/docker-compose.yml`). **Dev runs on 5173** for that
+reason. Serving the built site from any other origin fails every request with no CORS header —
+add the origin to that `.env` and restart the container rather than working around it.
+
 ## Gates
 
 | Command | Must pass |

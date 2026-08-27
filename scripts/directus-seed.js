@@ -42,14 +42,20 @@ async function upload(absolutePath, title) {
   return id;
 }
 
-/** Upsert by natural key so the seeder can be run repeatedly. */
+/**
+ * Upsert by natural key so the seeder can be run repeatedly.
+ * `categories` and `partners` are keyed by their own `key` column and have no
+ * `id`, so the primary key is read back off the row rather than assumed.
+ */
 async function upsert(collection, key, value, payload) {
-  const existing = await api("GET", `/items/${collection}?filter[${key}][_eq]=${encodeURIComponent(value)}&limit=1&fields=id,${key}`);
+  const existing = await api("GET", `/items/${collection}?filter[${key}][_eq]=${encodeURIComponent(value)}&limit=1`);
   if (existing?.length) {
     const id = existing[0].id ?? existing[0][key];
-    return api("PATCH", `/items/${collection}/${encodeURIComponent(id)}`, payload);
+    await api("PATCH", `/items/${collection}/${encodeURIComponent(id)}`, payload);
+    return { ...existing[0], ...payload, id };
   }
-  return api("POST", `/items/${collection}`, { [key]: value, ...payload });
+  const created = await api("POST", `/items/${collection}`, { [key]: value, ...payload });
+  return { ...created, id: created.id ?? created[key] };
 }
 
 console.log("→ categories");

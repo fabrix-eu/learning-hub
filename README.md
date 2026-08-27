@@ -15,8 +15,12 @@ production, industrial symbiosis, running a community event.
 ```bash
 npm install
 cp .env.example .env
-npm run dev            # http://localhost:4003
+npm run dev            # http://localhost:5173
 ```
+
+The dev server must run on **5173**: that is the origin `back.fabrixproject.eu` allows
+(`CORS_ORIGIN` in its `.env` on rdmpr-four). Any other port gets no CORS header and every
+request fails.
 
 ## Setting up Directus (once)
 
