@@ -112,6 +112,9 @@ export function Footer() {
           <a href="https://www.fabrixproject.eu/privacy-policy" className="hover:text-ink">
             Privacy policy
           </a>
+          <a href="https://www.fabrixproject.eu/privacy-policy/cookies" className="hover:text-ink">
+            Cookies policy
+          </a>
           <span className="ml-auto">© {new Date().getFullYear()} FABRIX</span>
         </div>
       </div>
