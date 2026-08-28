@@ -19,9 +19,10 @@ export function RootLayout() {
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-line bg-bg/95 backdrop-blur">
         <div className="mx-auto flex h-topbar max-w-6xl items-center gap-4 px-5">
-          <Link to="/" className="flex items-baseline gap-2">
-            <span className="font-display text-[19px] tracking-[-0.01em]">FABRIX</span>
-            <span className="text-[13px] text-muted">Learning Hub</span>
+          <Link to="/" className="flex flex-none items-center gap-2.5">
+            <img src="/fabrix-logo.svg" alt="FABRIX" className="h-5 w-auto" />
+            <span className="h-4 w-px bg-line2" aria-hidden />
+            <span className="text-[13px] whitespace-nowrap text-muted">Learning Hub</span>
           </Link>
 
           <nav className="ml-6 hidden items-center gap-6 sm:flex">
