@@ -208,5 +208,46 @@ for (const j of JUNCTIONS) {
   });
 }
 
+/*
+ * Presentation. Without these, Directus shows a raw primary key wherever a
+ * related item is referenced — an integer for an author, a UUID for a topic.
+ * Applied on every run (PATCH, not POST), so re-running fixes an existing
+ * instance as well as a fresh one.
+ */
+console.log("→ display templates");
+
+const DISPLAY = {
+  topics: "{{title}}",
+  authors: "{{name}}",
+  partners: "{{name}}",
+  categories: "{{label}}",
+  resources: "{{cta_label}}",
+  feedback: "{{topic}} · {{helpful}}",
+};
+
+for (const [collection, template] of Object.entries(DISPLAY)) {
+  await ensure(`${collection} → ${template}`, () =>
+    api("PATCH", `/collections/${collection}`, { meta: { display_template: template } }),
+  );
+}
+
+/** Per-field templates, for the relational interfaces that don't inherit the above. */
+const FIELD_TEMPLATES = [
+  ["topics", "authors", "{{authors_id.name}}"],
+  ["topics", "related", "{{related_topics_id.title}}"],
+  ["topics", "resources", "{{cta_label}}"],
+  ["topics", "category", "{{label}}"],
+  ["topics", "partner", "{{name}}"],
+  ["authors", "partner", "{{name}}"],
+  ["resources", "topic", "{{title}}"],
+  ["feedback", "topic", "{{title}}"],
+];
+
+for (const [collection, field, template] of FIELD_TEMPLATES) {
+  await ensure(`${collection}.${field} → ${template}`, () =>
+    api("PATCH", `/fields/${collection}/${field}`, { meta: { options: { template } } }),
+  );
+}
+
 console.log("\nDone. Next: DIRECTUS_TOKEN=… npm run directus:seed");
 console.log("Public read access is set by scripts/directus-permissions.js.");
