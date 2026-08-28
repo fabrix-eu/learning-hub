@@ -1,6 +1,7 @@
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import { PLATFORM_URL } from '../lib/directus';
+import { Footer } from '../components/Footer';
 
 const NAV = [
   { to: '/', label: 'Topics' },
@@ -63,22 +64,7 @@ export function RootLayout() {
 
       <Outlet />
 
-      <footer className="mt-20 border-t border-line bg-bg">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-10 text-[12.5px] text-muted sm:flex-row sm:items-center">
-          <p className="max-w-lg">
-            The FABRIX Learning Hub gathers practical knowledge produced by the project partners on circular
-            textile and clothing production in European cities.
-          </p>
-          <div className="flex gap-4 sm:ml-auto">
-            <a href="https://www.fabrixproject.eu/about" className="hover:text-ink">About FABRIX</a>
-            <a href={PLATFORM_URL} className="hover:text-ink">The platform</a>
-            <a href="https://www.fabrixproject.eu/contact" className="hover:text-ink">Contact</a>
-          </div>
-        </div>
-        <div className="mx-auto max-w-6xl px-5 pb-10 text-[11.5px] text-muted">
-          Funded by the European Union under Grant Agreement No. 101135638.
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
