@@ -180,15 +180,20 @@ for (const j of JUNCTIONS) {
       schema: {},
       fields: [{ field: "id", type: "integer", meta: { hidden: true }, schema: { is_primary_key: true, has_auto_increment: true } }],
     });
+    // Both relations need `junction_field` pointing at the opposite column.
+    // Set it on only one side and the app renders "The relationship is not
+    // configured properly" on the m2m interface, even though the data reads fine.
+    const leftField = `${j.left.collection}_id`;
     for (const side of [
-      { field: `${j.left.collection}_id`, type: j.left.type, related: j.left.collection },
-      { field: j.right.field, type: j.right.type, related: j.right.collection },
+      { field: leftField, type: j.left.type, related: j.left.collection, other: j.right.field },
+      { field: j.right.field, type: j.right.type, related: j.right.collection, other: leftField },
     ]) {
       await api("POST", `/fields/${j.name}`, { field: side.field, type: side.type, meta: { hidden: true }, schema: {} });
       await api("POST", "/relations", {
         collection: j.name,
         field: side.field,
         related_collection: side.related,
+        meta: { junction_field: side.other },
         schema: { on_delete: "CASCADE" },
       });
     }
@@ -197,7 +202,7 @@ for (const j of JUNCTIONS) {
       type: "alias",
       meta: { interface: "list-m2m", special: ["m2m"] },
     });
-    return api("PATCH", `/relations/${j.name}/${j.left.collection}_id`, {
+    return api("PATCH", `/relations/${j.name}/${leftField}`, {
       meta: { one_field: j.left.field, junction_field: j.right.field },
     });
   });
