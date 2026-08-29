@@ -113,6 +113,17 @@ const COLLECTIONS = [
     ],
   },
   {
+    collection: "photos",
+    meta: { icon: "photo_library", note: "A topic's photo gallery. Uploaded by hand in Directus — not extracted from the .docx.", sort_field: "sort" },
+    fields: [
+      { field: "id", type: "integer", meta: { hidden: true }, schema: { is_primary_key: true, has_auto_increment: true } },
+      { field: "image", type: "uuid", meta: { interface: "file-image", special: ["file"], required: true, note: "Web-sized is plenty — 2000px wide. Images lifted out of a Word file are often several MB." } },
+      { field: "caption", type: "string", meta: { interface: "input", note: "Shown under the photo. Optional, but a photo with no caption tells the reader nothing." } },
+      { field: "credit", type: "string", meta: { interface: "input", width: "half", note: "Only when the photo is not yours or a partner's — © name, or the licence." } },
+      { field: "sort", type: "integer", meta: { interface: "input", hidden: true } },
+    ],
+  },
+  {
     collection: "feedback",
     meta: { icon: "thumbs_up_down", note: "'Was this helpful?' — public write, admin read." },
     fields: [
@@ -128,6 +139,7 @@ const RELATIONS = [
   { collection: "topics", field: "category", related: "categories", type: "string" },
   { collection: "topics", field: "partner", related: "partners", type: "string" },
   { collection: "resources", field: "topic", related: "topics", type: "uuid", o2m: "resources" },
+  { collection: "photos", field: "topic", related: "topics", type: "uuid", o2m: "photos" },
   { collection: "authors", field: "partner", related: "partners", type: "string" },
   { collection: "feedback", field: "topic", related: "topics", type: "uuid" },
 ];
@@ -222,6 +234,7 @@ const DISPLAY = {
   partners: "{{name}}",
   categories: "{{label}}",
   resources: "{{cta_label}}",
+  photos: "{{image.title}}",
   feedback: "{{topic}} · {{helpful}}",
 };
 
@@ -236,6 +249,8 @@ const FIELD_TEMPLATES = [
   ["topics", "authors", "{{authors_id.name}}"],
   ["topics", "related", "{{related_topics_id.title}}"],
   ["topics", "resources", "{{cta_label}}"],
+  ["topics", "photos", "{{image.title}}"],
+  ["photos", "topic", "{{title}}"],
   ["topics", "category", "{{label}}"],
   ["topics", "partner", "{{name}}"],
   ["authors", "partner", "{{name}}"],

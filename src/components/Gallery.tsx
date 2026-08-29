@@ -1,0 +1,133 @@
+import { useRef, useState } from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { assetUrl } from '../lib/directus';
+import type { Photo } from '../lib/types';
+
+const thumb = (photo: Photo) =>
+  assetUrl(photo.image, { width: '720', height: '540', fit: 'cover', format: 'webp', quality: '75' }) ?? undefined;
+
+const large = (photo: Photo) =>
+  assetUrl(photo.image, { width: '1600', format: 'webp', quality: '85' }) ?? undefined;
+
+function Caption({ photo, tone }: { photo: Photo; tone: 'light' | 'dark' }) {
+  if (!photo.caption && !photo.credit) return null;
+  return (
+    <figcaption className={`mt-2 text-[12px] leading-relaxed ${tone === 'dark' ? 'text-white/80' : 'text-ink2'}`}>
+      {photo.caption}
+      {photo.credit && (
+        <span className={tone === 'dark' ? 'text-white/50' : 'text-muted'}>
+          {photo.caption ? ' · ' : ''}
+          {photo.credit}
+        </span>
+      )}
+    </figcaption>
+  );
+}
+
+/**
+ * A topic's photos. Most topics have none — this renders nothing at all then,
+ * no heading and no empty state. One photo is an illustration, so it gets the
+ * full width of the column; two or more become a grid. Both open a lightbox.
+ */
+export function Gallery({ photos }: { photos: Photo[] }) {
+  const [index, setIndex] = useState<number | null>(null);
+  const content = useRef<HTMLDivElement>(null);
+  if (!photos.length) return null;
+
+  const open = index === null ? null : photos[index];
+  const move = (delta: number) =>
+    setIndex((i) => (i === null ? i : (i + delta + photos.length) % photos.length));
+
+  return (
+    <section className="mt-8">
+      {photos.length === 1 ? (
+        <figure>
+          <button
+            type="button"
+            onClick={() => setIndex(0)}
+            className="block w-full cursor-zoom-in overflow-hidden rounded-fx border border-line"
+          >
+            <img src={large(photos[0])} alt={photos[0].caption ?? ''} loading="lazy" className="w-full" />
+          </button>
+          <Caption photo={photos[0]} tone="light" />
+        </figure>
+      ) : (
+        <ul className={`grid gap-2 sm:grid-cols-2 ${photos.length > 2 ? 'lg:grid-cols-3' : ''}`}>
+          {photos.map((photo, i) => (
+            <li key={photo.id}>
+              <figure>
+                <button
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  className="group block w-full cursor-zoom-in overflow-hidden rounded-fx border border-line"
+                >
+                  <img
+                    src={thumb(photo)}
+                    alt={photo.caption ?? ''}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]"
+                  />
+                </button>
+                <Caption photo={photo} tone="light" />
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <Dialog.Root open={open !== null} onOpenChange={(o) => !o && setIndex(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-40 bg-ink/85" />
+          <Dialog.Content
+            ref={content}
+            tabIndex={-1}
+            /*
+             * Radix focuses the first focusable child on open — here the
+             * "previous photo" arrow, so Enter would walk the gallery
+             * backwards the moment it opens. Focus the dialog itself instead:
+             * the arrow keys below are bound to it, and Escape still closes.
+             */
+            onOpenAutoFocus={(event) => {
+              event.preventDefault();
+              content.current?.focus();
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowRight') move(1);
+              if (event.key === 'ArrowLeft') move(-1);
+            }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 outline-none sm:p-10"
+          >
+            <Dialog.Title className="sr-only">{open?.caption ?? 'Photo'}</Dialog.Title>
+            {open && (
+              <figure className="flex max-h-full max-w-5xl flex-col">
+                <img
+                  src={large(open)}
+                  alt={open.caption ?? ''}
+                  className="max-h-[78vh] w-auto rounded-fx bg-white object-contain"
+                />
+                <Caption photo={open} tone="dark" />
+              </figure>
+            )}
+
+            {photos.length > 1 && (
+              <div className="mt-4 flex items-center gap-3 font-mono text-[11px] tracking-[0.08em] text-white/60">
+                <button type="button" onClick={() => move(-1)} aria-label="Previous photo" className="hover:text-white">
+                  <ChevronLeft className="size-5" />
+                </button>
+                {index !== null && `${index + 1} / ${photos.length}`}
+                <button type="button" onClick={() => move(1)} aria-label="Next photo" className="hover:text-white">
+                  <ChevronRight className="size-5" />
+                </button>
+              </div>
+            )}
+
+            <Dialog.Close aria-label="Close" className="absolute top-4 right-4 text-white/70 hover:text-white">
+              <X className="size-6" />
+            </Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </section>
+  );
+}

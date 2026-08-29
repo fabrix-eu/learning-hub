@@ -7,7 +7,9 @@ import { audienceLabel, typeLabel } from '../lib/taxonomy';
 import type { Author, Category, Partner } from '../lib/types';
 import { Chip } from '../components/Chip';
 import { DownloadList } from '../components/DownloadList';
+import { Gallery } from '../components/Gallery';
 import { Helpful } from '../components/Helpful';
+import { PartnerLogo } from '../components/PartnerLogo';
 import { VideoEmbed } from '../components/VideoEmbed';
 
 export function TopicPage() {
@@ -68,6 +70,8 @@ export function TopicPage() {
           {/* Partner-authored HTML, converted from the contribution .docx. */}
           <div className="fx-prose" dangerouslySetInnerHTML={{ __html: topic.body }} />
 
+          <Gallery photos={topic.photos ?? []} />
+
           {topic.external_links && topic.external_links.length > 0 && (
             <section className="mt-10 border-t border-line pt-5">
               <h2 className="mb-3 font-mono text-[10.5px] tracking-[0.11em] text-muted uppercase">External sources</h2>
@@ -97,6 +101,11 @@ export function TopicPage() {
 
           <div className="rounded-xl border border-line bg-panel p-3.5">
             <p className="mb-2.5 font-mono text-[10px] tracking-[0.11em] text-muted uppercase">Contributed by</p>
+            {partner?.logo && (
+              <div className="mb-2.5">
+                <PartnerLogo partner={partner} />
+              </div>
+            )}
             <p className="text-[13px] font-medium text-ink">{partner?.name}</p>
             {authors.length > 0 && (
               <p className="mt-0.5 text-[12px] text-ink2">{authors.map((a) => a.name).join(', ')}</p>

@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { partnersQueryOptions, topicsQueryOptions } from '../lib/directus';
+import { PartnerLogo } from '../components/PartnerLogo';
 import type { Partner } from '../lib/types';
 import { useDocumentTitle } from '../lib/useDocumentTitle';
 
@@ -28,6 +29,7 @@ export function PartnersPage() {
               params={{ key: partner.key }}
               className="flex h-full flex-col gap-2 rounded-xl border border-line bg-card p-5 transition hover:-translate-y-px hover:border-line2"
             >
+              {partner.logo && <PartnerLogo partner={partner} />}
               <p className="font-display text-[17px] tracking-[-0.01em] text-ink">{partner.name}</p>
               <p className="text-[12px] text-muted">
                 {[partner.city, partner.country].filter(Boolean).join(' · ')}

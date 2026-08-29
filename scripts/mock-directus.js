@@ -41,6 +41,7 @@ for (const [index, topic] of manifest.topics.entries()) {
     partner: partners[topic.partner],
     authors: (topic.authors ?? []).map((name, i) => ({ authors_id: { id: i, name, role: null, avatar: null } })),
     related: [],
+    photos: [],
     resources: (topic.resources ?? [])
       .filter((r) => r.url || r.file)
       .map((r) => ({ ...r, id: nextId++, file: r.file ? encodeURIComponent(r.file) : null, duration: null })),

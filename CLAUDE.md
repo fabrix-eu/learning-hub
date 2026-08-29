@@ -42,6 +42,16 @@ prototype's themes: `business_development`, `circular_urban_production`, `urban_
 2. **The download area deserves its own surface.** `/tools` lists every canvas, roadmap, matrix and
    recording as an object in its own right. Do not bury them back inside the articles.
 
+### Photos are editorial, not from the gabarit
+
+`photos` (o2m on `topics`: `image`, `caption`, `credit`, `sort`) is filled by hand in Directus —
+the extractor never writes to it, so a re-seed cannot wipe it. Most topics have none and the
+article then shows nothing at all; one photo renders full width, several as a grid, both opening
+a lightbox. Inline images that came out of a `.docx` stay in the body where the partner put them.
+
+Partner logos live on `partners.logo`. `npm run directus:logos` attaches the ones already sitting
+in the file library to their partner row, and never overwrites one that is set.
+
 ## Compass routing
 
 `topics.compass_modules[]` holds keys from the Compass Assessment forms in `platform-back`
