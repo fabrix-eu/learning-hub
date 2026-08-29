@@ -41,6 +41,13 @@ export interface Resource {
   duration: number | null;
 }
 
+export interface Photo {
+  id: number;
+  image: string;
+  caption: string | null;
+  credit: string | null;
+}
+
 export interface ExternalLink {
   title: string;
   url: string;
@@ -65,6 +72,7 @@ export interface Topic {
   authors: { authors_id: Author }[];
   related: { related_topics_id: Topic }[];
   resources: Resource[];
+  photos: Photo[];
 }
 
 /** A resource lifted out of its topic, for the Tools & templates listing. */

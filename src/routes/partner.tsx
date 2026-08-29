@@ -3,6 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { PLATFORM_URL, partnerQueryOptions, topicsQueryOptions } from '../lib/directus';
 import type { Partner } from '../lib/types';
+import { PartnerLogo } from '../components/PartnerLogo';
 import { TopicCard } from '../components/TopicCard';
 import { useDocumentTitle } from '../lib/useDocumentTitle';
 
@@ -21,6 +22,12 @@ export function PartnerPage() {
         <ArrowLeft className="size-3.5" />
         All partners
       </Link>
+
+      {partner.logo && (
+        <div className="mb-4">
+          <PartnerLogo partner={partner} size="lg" />
+        </div>
+      )}
 
       <h1 className="max-w-[22ch] text-[clamp(25px,3.2vw,33px)] leading-[1.15] tracking-[-0.02em]">{partner.name}</h1>
       <p className="mt-2 text-[12.5px] text-muted">{[partner.city, partner.country].filter(Boolean).join(' · ')}</p>

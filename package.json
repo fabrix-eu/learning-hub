@@ -12,7 +12,8 @@
     "content:extract": "node scripts/extract-docx.js",
     "directus:bootstrap": "node scripts/directus-bootstrap.js",
     "directus:seed": "node scripts/directus-seed.js",
-    "dev:mock": "node scripts/mock-directus.js"
+    "dev:mock": "node scripts/mock-directus.js",
+    "directus:logos": "node scripts/directus-link-logos.js"
   },
   "dependencies": {
     "@directus/sdk": "^20.1.0",
