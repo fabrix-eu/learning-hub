@@ -274,7 +274,9 @@ const FIELD_TEMPLATES = [
   ["topics", "authors", "{{authors_id.name}}"],
   ["topics", "related", "{{related_topics_id.title}}"],
   ["topics", "resources", "{{cta_label}}"],
-  ["topics", "gallery", "{{caption}}"],
+  // `$thumbnail` keeps the file preview in the row: after a bulk upload the
+  // captions are still empty, and a list of blank rows tells an editor nothing.
+  ["topics", "gallery", "{{directus_files_id.$thumbnail}} {{caption}}"],
   ["topics", "category", "{{label}}"],
   ["topics", "partner", "{{name}}"],
   ["authors", "partner", "{{name}}"],
