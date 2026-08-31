@@ -34,7 +34,9 @@
   --color-card: #ffffff;
   --color-ink: #23232b;
   --color-ink2: #5b5b66;
-  --color-muted: #9a9aa6;
+  /* Darkened from the crosswalk's #9a9aa6, which reads at 2.8:1 — under WCAG AA
+     at any size. This is 4.7:1 on the panel and still the third grey down. */
+  --color-muted: #6f6f7b;
   --color-line: #ecebf0;
   --color-line2: #e0dfe7;
 
@@ -56,6 +58,10 @@
   --color-rose-soft: #fbe7f0;
   --color-slate: #7b8494;
   --color-slate-soft: #eef0f3;
+
+  /* The reading measure. `ch` lies here — IBM Plex's "0" is much wider than its
+     average glyph, so 70ch rendered as 96 characters a line. 38rem is ~82. */
+  --container-measure: 38rem;
 
   /* 14px, not shadcn's 8px — the whole UI re-proportions if this changes. */
   --radius-fx: 14px;
@@ -88,7 +94,11 @@
 @layer components {
   .fx-prose {
     color: var(--color-ink2);
+    font-size: 17px;
     line-height: 1.68;
+    /* The column is 812px wide, which ran the body to ~110 characters a line at
+       this size. Capping the measure is the single biggest win here. */
+    max-width: var(--container-measure);
   }
   .fx-prose > * + * { margin-top: 1rem; }
   .fx-prose h1, .fx-prose h2 {

@@ -20,10 +20,10 @@ export function TopicCard({ topic }: { topic: Topic }) {
       <div className="flex gap-3">
         <CategoryIcon icon={category?.icon ?? null} accent={category?.accent ?? 'violet'} />
         <div className="min-w-0">
-          <h3 className="text-[15px] leading-snug tracking-[-0.005em] text-ink group-hover:text-violet-ink">
+          <h3 className="text-[16px] leading-snug tracking-[-0.005em] text-ink group-hover:text-violet-ink">
             {topic.title}
           </h3>
-          <p className="mt-1 line-clamp-3 text-[12.5px] leading-relaxed text-ink2">{topic.summary}</p>
+          <p className="mt-1 line-clamp-3 text-[13.5px] leading-relaxed text-ink2">{topic.summary}</p>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export function TopicCard({ topic }: { topic: Topic }) {
           </Chip>
         )}
         {downloads.length > 0 && <Chip>{downloads.length} download{downloads.length > 1 ? 's' : ''}</Chip>}
-        <span className="ml-auto flex items-center gap-1 text-[11px] text-muted">
+        <span className="ml-auto flex items-center gap-1 text-[12px] text-muted">
           {partner?.short && <span>{partner.short}</span>}
           {topic.read_time ? (
             <>

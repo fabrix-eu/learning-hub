@@ -72,8 +72,8 @@ export function ToolsPage() {
                   {isVideo ? <PlayCircle className="size-[18px]" strokeWidth={1.7} /> : <Download className="size-[18px]" strokeWidth={1.7} />}
                 </span>
                 <div className="min-w-0">
-                  <p className="text-[14px] leading-snug text-ink">{toolTitle(tool)}</p>
-                  <p className="mt-0.5 text-[11.5px] text-muted">
+                  <p className="text-[15px] leading-snug text-ink">{toolTitle(tool)}</p>
+                  <p className="mt-0.5 text-[12.5px] text-muted">
                     {resourceLabel(tool.kind)}
                     {tool.language !== 'en' && ` · ${languageLabel(tool.language)}`}
                   </p>
@@ -83,7 +83,7 @@ export function ToolsPage() {
               <Link
                 to="/topics/$slug"
                 params={{ slug: tool.topic.slug }}
-                className="text-[12.5px] text-ink2 hover:text-violet-ink"
+                className="text-[13px] text-ink2 hover:text-violet-ink"
               >
                 {isVideo ? tool.cta_label : `From: ${tool.topic.title}`}
               </Link>

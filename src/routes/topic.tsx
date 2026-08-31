@@ -65,7 +65,7 @@ export function TopicPage() {
             </div>
           )}
 
-          <p className="mb-7 text-[16px] leading-relaxed text-ink">{topic.summary}</p>
+          <p className="mb-7 max-w-measure text-[16px] leading-relaxed text-ink">{topic.summary}</p>
 
           {/* Partner-authored HTML, converted from the contribution .docx. */}
           <div className="fx-prose" dangerouslySetInnerHTML={{ __html: topic.body }} />
