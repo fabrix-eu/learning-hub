@@ -14,7 +14,6 @@ const READABLE = {
   partners: {},
   authors: {},
   resources: { topic: { status: { _eq: "published" } } },
-  photos: { topic: { status: { _eq: "published" } } },
   topics_authors: {},
   topics_related: {},
   topics_files: { topics_id: { status: { _eq: "published" } } },
