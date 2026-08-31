@@ -11,6 +11,13 @@ import { api, ensure } from "./directus.js";
 
 const text = (field, extra = {}) => ({ field, type: "string", meta: { interface: "input", ...extra.meta }, schema: {}, ...extra });
 
+/** Directus' default toolbar, plus `table`. */
+const WYSIWYG_TOOLBAR = [
+  "bold", "italic", "underline", "h1", "h2", "h3", "numlist", "bullist",
+  "removeformat", "blockquote", "table", "customLink", "customImage", "customMedia",
+  "hr", "code", "fullscreen",
+];
+
 const COLLECTIONS = [
   {
     collection: "categories",
@@ -69,7 +76,9 @@ const COLLECTIONS = [
       { field: "title", type: "string", meta: { interface: "input", required: true } },
       { field: "slug", type: "string", meta: { interface: "input", required: true, note: "Public URL. Never change it after publishing." }, schema: { is_unique: true } },
       { field: "summary", type: "text", meta: { interface: "input-multiline", note: "The gabarit's 'Short text'. Shown on cards and as the meta description." } },
-      { field: "body", type: "text", meta: { interface: "input-rich-text-html", note: "The gabarit's 'Long text'." } },
+      // Directus' default WYSIWYG toolbar has no table button; the partner bodies have tables,
+      // so it is added here. `.fx-prose table` in src/index.css styles the bare markup.
+      { field: "body", type: "text", meta: { interface: "input-rich-text-html", note: "The gabarit's 'Long text'.", options: { toolbar: WYSIWYG_TOOLBAR } } },
       { field: "type", type: "string", meta: { interface: "select-dropdown", width: "half", options: { choices: [
         { text: "Explainer", value: "explainer" }, { text: "Guide", value: "guide" },
         { text: "Case study", value: "case" }, { text: "Method", value: "method" }, { text: "Tool", value: "tool" },
