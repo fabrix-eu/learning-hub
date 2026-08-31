@@ -10,10 +10,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "content:extract": "node scripts/extract-docx.js",
-    "directus:bootstrap": "node scripts/directus-bootstrap.js",
-    "directus:seed": "node scripts/directus-seed.js",
+    "directus:bootstrap": "node --env-file-if-exists=.env scripts/directus-bootstrap.js",
+    "directus:permissions": "node --env-file-if-exists=.env scripts/directus-permissions.js",
+    "directus:seed": "node --env-file-if-exists=.env scripts/directus-seed.js",
     "dev:mock": "node scripts/mock-directus.js",
-    "directus:logos": "node scripts/directus-link-logos.js"
+    "directus:logos": "node --env-file-if-exists=.env scripts/directus-link-logos.js"
   },
   "dependencies": {
     "@directus/sdk": "^20.1.0",
