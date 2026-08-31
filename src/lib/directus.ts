@@ -37,7 +37,8 @@ const ARTICLE_FIELDS = [
   'category.*', 'partner.*',
   'authors.authors_id.*',
   'resources.*',
-  'photos.*',
+  'gallery.id', 'gallery.caption', 'gallery.sort',
+  'gallery.directus_files_id.id', 'gallery.directus_files_id.credit',
   'related.related_topics_id.id', 'related.related_topics_id.slug', 'related.related_topics_id.title',
 ];
 

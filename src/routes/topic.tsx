@@ -70,7 +70,7 @@ export function TopicPage() {
           {/* Partner-authored HTML, converted from the contribution .docx. */}
           <div className="fx-prose" dangerouslySetInnerHTML={{ __html: topic.body }} />
 
-          <Gallery photos={topic.photos ?? []} />
+          <Gallery items={topic.gallery ?? []} />
 
           {topic.external_links && topic.external_links.length > 0 && (
             <section className="mt-10 border-t border-line pt-5">

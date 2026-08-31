@@ -2,7 +2,25 @@ import { useRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { assetUrl } from '../lib/directus';
-import type { Photo } from '../lib/types';
+import type { GalleryItem, Photo } from '../lib/types';
+
+/**
+ * Directus hands the gallery over as junction rows. Flatten them into what the
+ * figures need, dropping any row whose file was deleted from the library.
+ */
+const toPhotos = (items: GalleryItem[]): Photo[] =>
+  [...items]
+    .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
+    .flatMap((item) =>
+      item.directus_files_id
+        ? [{
+            id: item.id,
+            image: item.directus_files_id.id,
+            caption: item.caption,
+            credit: item.directus_files_id.credit,
+          }]
+        : [],
+    );
 
 const thumb = (photo: Photo) =>
   assetUrl(photo.image, { width: '720', height: '540', fit: 'cover', format: 'webp', quality: '75' }) ?? undefined;
@@ -30,9 +48,10 @@ function Caption({ photo, tone }: { photo: Photo; tone: 'light' | 'dark' }) {
  * no heading and no empty state. One photo is an illustration, so it gets the
  * full width of the column; two or more become a grid. Both open a lightbox.
  */
-export function Gallery({ photos }: { photos: Photo[] }) {
+export function Gallery({ items }: { items: GalleryItem[] }) {
   const [index, setIndex] = useState<number | null>(null);
   const content = useRef<HTMLDivElement>(null);
+  const photos = toPhotos(items);
   if (!photos.length) return null;
 
   const open = index === null ? null : photos[index];

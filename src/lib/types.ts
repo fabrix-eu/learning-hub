@@ -41,11 +41,24 @@ export interface Resource {
   duration: number | null;
 }
 
+/** A gallery photo as the figures need it — junction row and file, flattened. */
 export interface Photo {
   id: number;
   image: string;
   caption: string | null;
   credit: string | null;
+}
+
+/**
+ * One row of `topics.gallery`. The caption is written for *this* article and so
+ * lives on the junction; the credit describes the photo itself and lives on the
+ * file, typed once however many articles reuse it.
+ */
+export interface GalleryItem {
+  id: number;
+  caption: string | null;
+  sort: number | null;
+  directus_files_id: { id: string; credit: string | null } | null;
 }
 
 export interface ExternalLink {
@@ -72,7 +85,7 @@ export interface Topic {
   authors: { authors_id: Author }[];
   related: { related_topics_id: Topic }[];
   resources: Resource[];
-  photos: Photo[];
+  gallery: GalleryItem[];
 }
 
 /** A resource lifted out of its topic, for the Tools & templates listing. */

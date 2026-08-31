@@ -44,10 +44,17 @@ prototype's themes: `business_development`, `circular_urban_production`, `urban_
 
 ### Photos are editorial, not from the gabarit
 
-`photos` (o2m on `topics`: `image`, `caption`, `credit`, `sort`) is filled by hand in Directus —
-the extractor never writes to it, so a re-seed cannot wipe it. Most topics have none and the
-article then shows nothing at all; one photo renders full width, several as a grid, both opening
-a lightbox. Inline images that came out of a `.docx` stay in the body where the partner put them.
+`topics.gallery` is a **Files m2m**, not a collection of its own — an editor drops a whole shoot in
+at once. It is filled by hand in Directus; the extractor never writes to it, so a re-seed cannot
+wipe it. Most topics have none and the article then shows nothing at all; one photo renders full
+width, several as a grid, both opening a lightbox. Inline images that came out of a `.docx` stay in
+the body where the partner put them.
+
+The metadata is split by what it describes: **`caption` sits on the junction** (`topics_files`,
+alongside `sort`) because it is written for *this* article, while **`credit` sits on
+`directus_files`** because the author and licence belong to the photo however many articles reuse
+it. Both relational displays are templated on `{{caption}}`, so a row reads as its caption; a photo
+straight out of a bulk upload has none yet and shows only its thumbnail.
 
 Partner logos live on `partners.logo`. `npm run directus:logos` attaches the ones already sitting
 in the file library to their partner row, and never overwrites one that is set.

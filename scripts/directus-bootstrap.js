@@ -156,6 +156,27 @@ const RELATIONS = [
 const JUNCTIONS = [
   { name: "topics_authors", left: { collection: "topics", field: "authors", type: "uuid" }, right: { collection: "authors", field: "authors_id", type: "integer" } },
   { name: "topics_related", left: { collection: "topics", field: "related", type: "uuid" }, right: { collection: "topics", field: "related_topics_id", type: "uuid" }, self: true },
+  /*
+   * The gallery is a Files m2m, not a collection of its own: an editor drops a
+   * whole shoot in at once. The caption belongs to *this* use of the photo, so
+   * it sits on the junction; the credit belongs to the file and lives on
+   * directus_files, typed once however many articles reuse the image.
+   */
+  {
+    name: "topics_files",
+    left: { collection: "topics", field: "gallery", type: "uuid", interface: "files", special: ["files"] },
+    right: { collection: "directus_files", field: "directus_files_id", type: "uuid" },
+    sort: "sort",
+    fields: [
+      { field: "caption", type: "string", meta: { interface: "input", note: "Shown under the photo, in this article. Optional, but a photo with no caption tells the reader nothing." } },
+      { field: "sort", type: "integer", meta: { interface: "input", hidden: true } },
+    ],
+  },
+];
+
+/** Fields added to a Directus system collection. */
+const SYSTEM_FIELDS = [
+  { collection: "directus_files", field: "credit", type: "string", meta: { interface: "input", note: "Only when the photo is not yours or a partner's — © name, or the licence. A property of the file: typed once, shown wherever it is used." } },
 ];
 
 console.log("→ collections");
@@ -218,13 +239,16 @@ for (const j of JUNCTIONS) {
         schema: { on_delete: "CASCADE" },
       });
     }
+    for (const field of j.fields ?? []) {
+      await api("POST", `/fields/${j.name}`, { ...field, schema: {} });
+    }
     await api("POST", `/fields/${j.left.collection}`, {
       field: j.left.field,
       type: "alias",
-      meta: { interface: "list-m2m", special: ["m2m"] },
+      meta: { interface: j.left.interface ?? "list-m2m", special: j.left.special ?? ["m2m"] },
     });
     return api("PATCH", `/relations/${j.name}/${leftField}`, {
-      meta: { one_field: j.left.field, junction_field: j.right.field },
+      meta: { one_field: j.left.field, junction_field: j.right.field, ...(j.sort ? { sort_field: j.sort } : {}) },
     });
   });
 }
@@ -235,6 +259,11 @@ for (const j of JUNCTIONS) {
  * Applied on every run (PATCH, not POST), so re-running fixes an existing
  * instance as well as a fresh one.
  */
+console.log("→ fields on system collections");
+for (const { collection, ...field } of SYSTEM_FIELDS) {
+  await ensure(`${collection}.${field.field}`, () => api("POST", `/fields/${collection}`, field));
+}
+
 console.log("→ display templates");
 
 const DISPLAY = {
@@ -243,7 +272,7 @@ const DISPLAY = {
   partners: "{{name}}",
   categories: "{{label}}",
   resources: "{{cta_label}}",
-  photos: "{{image.title}}",
+  photos: "{{caption}}",
   feedback: "{{topic}} · {{helpful}}",
 };
 
@@ -258,7 +287,8 @@ const FIELD_TEMPLATES = [
   ["topics", "authors", "{{authors_id.name}}"],
   ["topics", "related", "{{related_topics_id.title}}"],
   ["topics", "resources", "{{cta_label}}"],
-  ["topics", "photos", "{{image.title}}"],
+  ["topics", "photos", "{{caption}}"],
+  ["topics", "gallery", "{{caption}}"],
   ["photos", "topic", "{{title}}"],
   ["topics", "category", "{{label}}"],
   ["topics", "partner", "{{name}}"],
