@@ -27,14 +27,14 @@ export function TopicPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-8">
-      <Link to="/" className="mb-4 inline-flex items-center gap-1.5 text-[12.5px] text-ink2 hover:text-ink">
+      <Link to="/" className="mb-5 inline-flex items-center gap-1.5 text-small font-bold text-ink2 hover:text-ink">
         <ArrowLeft className="size-3.5" />
         Back to the hub
       </Link>
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
         <article>
-          <p className="mb-3 flex items-center gap-1.5 text-[12px] text-muted">
+          <p className="mb-4 flex items-center gap-1.5 text-label text-muted uppercase">
             <Link to="/" search={{ cat: category?.key }} className="hover:text-ink">
               {category?.label_short ?? category?.label}
             </Link>
@@ -42,11 +42,9 @@ export function TopicPage() {
             <span>{typeLabel(topic.type)}</span>
           </p>
 
-          <h1 className="max-w-[24ch] text-[clamp(25px,3.2vw,33px)] leading-[1.15] tracking-[-0.02em]">
-            {topic.title}
-          </h1>
+          <h1 className="max-w-[22ch] text-title sm:text-display">{topic.title}</h1>
 
-          <div className="mt-4 mb-6 flex flex-wrap gap-1.5">
+          <div className="mt-5 mb-7 flex flex-wrap gap-1.5">
             <Chip tone="outline">{typeLabel(topic.type)}</Chip>
             {topic.audiences?.map((audience) => (
               <Chip key={audience}>For {audienceLabel(audience).toLowerCase()}</Chip>
@@ -65,7 +63,7 @@ export function TopicPage() {
             </div>
           )}
 
-          <p className="mb-7 max-w-measure text-[16px] leading-relaxed text-ink">{topic.summary}</p>
+          <p className="mb-8 max-w-measure text-lead font-medium text-ink">{topic.summary}</p>
 
           {/* Partner-authored HTML, converted from the contribution .docx. */}
           <div className="fx-prose" dangerouslySetInnerHTML={{ __html: topic.body }} />
@@ -74,7 +72,7 @@ export function TopicPage() {
 
           {topic.external_links && topic.external_links.length > 0 && (
             <section className="mt-10 border-t border-line pt-5">
-              <h2 className="mb-3 font-mono text-[10.5px] tracking-[0.11em] text-muted uppercase">External sources</h2>
+              <h2 className="mb-3 text-label text-muted uppercase">External sources</h2>
               <ul className="flex flex-col gap-2">
                 {topic.external_links.map((link) => (
                   <li key={link.url}>
@@ -82,7 +80,7 @@ export function TopicPage() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[13.5px] text-violet-ink hover:underline"
+                      className="inline-flex items-center gap-1.5 text-body font-medium text-violet-ink hover:underline"
                     >
                       {link.title}
                       <ExternalLink className="size-3.5" />
@@ -96,35 +94,35 @@ export function TopicPage() {
           <Helpful topicId={topic.id} />
         </article>
 
-        <aside className="flex flex-col gap-3 lg:sticky lg:top-[calc(var(--spacing-topbar)+1.5rem)] lg:self-start">
+        <aside className="flex flex-col gap-4 lg:sticky lg:top-[calc(var(--spacing-topbar)+1.5rem)] lg:self-start">
           <DownloadList resources={downloads} />
 
-          <div className="rounded-xl border border-line bg-panel p-3.5">
-            <p className="mb-2.5 font-mono text-[10px] tracking-[0.11em] text-muted uppercase">Contributed by</p>
+          <div className="rounded-fx border border-line bg-panel p-5">
+            <p className="mb-3 text-label text-muted uppercase">Contributed by</p>
             {partner?.logo && (
               <div className="mb-2.5">
                 <PartnerLogo partner={partner} />
               </div>
             )}
-            <p className="text-[13px] font-medium text-ink">{partner?.name}</p>
+            <p className="text-body font-bold text-ink">{partner?.name}</p>
             {authors.length > 0 && (
-              <p className="mt-0.5 text-[12px] text-ink2">{authors.map((a) => a.name).join(', ')}</p>
+              <p className="mt-0.5 text-small text-ink2">{authors.map((a) => a.name).join(', ')}</p>
             )}
             {topic.co_contributors && (
-              <p className="mt-1.5 text-[11.5px] text-muted">With {topic.co_contributors}</p>
+              <p className="mt-1.5 text-[12.5px] text-muted">With {topic.co_contributors}</p>
             )}
             <div className="mt-3 flex flex-col gap-1.5">
               <Link
                 to="/partners/$key"
                 params={{ key: partner?.key }}
-                className="text-[12.5px] text-violet-ink hover:underline"
+                className="text-small font-bold text-violet-ink hover:underline"
               >
                 All contributions from {partner?.short ?? partner?.name} →
               </Link>
               {partner?.fabrix_org_id && (
                 <a
                   href={`${PLATFORM_URL}/organizations/${partner.fabrix_org_id}`}
-                  className="inline-flex items-center gap-1 text-[12.5px] text-violet-ink hover:underline"
+                  className="inline-flex items-center gap-1 text-small font-bold text-violet-ink hover:underline"
                 >
                   View on FABRIX
                   <ArrowUpRight className="size-3" />
@@ -134,14 +132,14 @@ export function TopicPage() {
           </div>
 
           {related.length > 0 && (
-            <div className="rounded-xl border border-line bg-panel p-3.5">
-              <p className="mb-1.5 font-mono text-[10px] tracking-[0.11em] text-muted uppercase">Related</p>
+            <div className="rounded-fx border border-line bg-panel p-5">
+              <p className="mb-2 text-label text-muted uppercase">Related</p>
               {related.map((item) => (
                 <Link
                   key={item.id}
                   to="/topics/$slug"
                   params={{ slug: item.slug }}
-                  className="block border-b border-line py-2 text-[12.5px] text-ink2 last:border-0 hover:text-violet-ink"
+                  className="block border-b border-line py-2.5 text-small text-ink2 last:border-0 hover:text-violet-ink"
                 >
                   {item.title}
                 </Link>
@@ -150,14 +148,16 @@ export function TopicPage() {
           )}
 
           {topic.compass_modules?.length > 0 && (
-            <div className="rounded-xl border border-violet-border bg-violet-soft p-3.5">
-              <p className="mb-1.5 font-mono text-[10px] tracking-[0.11em] text-violet-ink uppercase">Next step</p>
-              <p className="text-[12.5px] leading-relaxed text-ink">
-                See where your organisation stands on these practices.{' '}
-                <a href={`${PLATFORM_URL}/org/assessments`} className="font-medium text-violet hover:underline">
-                  Open the Compass →
-                </a>
-              </p>
+            <div className="rounded-fx bg-violet p-5 text-white">
+              <p className="mb-2 text-label uppercase opacity-70">Next step</p>
+              <p className="text-body">See where your organisation stands on these practices.</p>
+              <a
+                href={`${PLATFORM_URL}/org/assessments`}
+                className="mt-3.5 inline-flex items-center gap-1.5 rounded-fx-action bg-white px-3.5 py-2 text-small font-bold text-violet transition hover:bg-white/90"
+              >
+                Open the Compass
+                <ArrowUpRight className="size-3.5" strokeWidth={2.4} />
+              </a>
             </div>
           )}
         </aside>

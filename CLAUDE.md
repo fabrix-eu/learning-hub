@@ -70,9 +70,18 @@ in the file library to their partner row, and never overwrites one that is set.
 
 Follow `/dev-fullstack-ruby-react` and the sibling `platform-front`; the deltas that matter here:
 
-- **Design tokens are transcribed, not chosen.** `src/index.css` carries the FABRIX system from
-  `FABRIX-proto/reference/CROSSWALK_token_v1.md` — Archia + IBM Plex Sans, violet `#6c4cf1`,
-  radius **14px**. Changing a token re-proportions the whole UI and breaks kinship with the platform.
+- **Design tokens are transcribed, not chosen.** `src/index.css` carries the FABRIX system in
+  **Direction B**, the direction validated on the platform's `/design` page
+  (`platform.fabrixproject.eu/design`) — Plus Jakarta Sans throughout, violet `#6c4cf1`, card
+  radius **14px**, headings at weight **800** on a real display scale (`text-hero` 52 / `text-display`
+  36 / `text-title` 26 / `text-heading` 18). Emphasis is a **solid fill, never a tint**: the selected
+  chip, the selected category and the Compass panel are violet blocks. Changing a token re-proportions
+  the whole UI and breaks kinship with the platform — take the value from `/design`, do not re-pick it
+  here. The one deliberate divergence is `--color-muted`, held a step darker than the platform's for
+  WCAG AA on a public reading site (the comment in `index.css` says why).
+  *(Before August 2026 the tokens were the prototype crosswalk — Archia + IBM Plex Sans, 400-weight
+  headings. Those fonts are gone from `public/fonts`; nothing should reference them.)*
+
 - **View state lives in the URL.** Filters, category, search and kind are TanStack Router search
   params — never `useState`. A filtered hub must be a shareable link.
 - **Article bodies are partner HTML**, converted from `.docx`. They arrive as bare `h2/h3/p/ul/table`

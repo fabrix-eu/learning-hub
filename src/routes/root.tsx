@@ -20,9 +20,9 @@ export function RootLayout() {
       <header className="sticky top-0 z-20 border-b border-line bg-bg/95 backdrop-blur">
         <div className="mx-auto flex h-topbar max-w-6xl items-center gap-4 px-5">
           <Link to="/" className="flex flex-none items-center gap-2.5">
-            <img src="/fabrix-logo.svg" alt="FABRIX" className="h-5 w-auto" />
-            <span className="h-4 w-px bg-line2" aria-hidden />
-            <span className="text-[13px] whitespace-nowrap text-muted">Learning Hub</span>
+            <img src="/fabrix-logo.svg" alt="FABRIX" className="h-7 w-auto" />
+            <span className="h-5 w-px bg-line2" aria-hidden />
+            <span className="text-lead font-medium whitespace-nowrap text-ink2">Learning Hub</span>
           </Link>
 
           <nav className="ml-6 hidden items-center gap-6 sm:flex">
@@ -30,7 +30,9 @@ export function RootLayout() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`text-[13.5px] transition ${isActive(item.to) ? 'font-medium text-ink' : 'text-ink2 hover:text-ink'}`}
+                className={`text-body transition ${
+                  isActive(item.to) ? 'font-extrabold text-ink' : 'font-medium text-ink2 hover:text-ink'
+                }`}
               >
                 {item.label}
               </Link>
@@ -39,7 +41,7 @@ export function RootLayout() {
 
           <a
             href={`${PLATFORM_URL}/register`}
-            className="ml-auto flex items-center gap-1.5 rounded-fx-sm bg-violet px-3.5 py-2 text-[12.5px] font-medium text-white transition hover:brightness-110"
+            className="ml-auto flex items-center gap-1.5 rounded-fx-action bg-violet px-4 py-2.5 text-body font-bold text-white transition hover:brightness-110"
           >
             Join FABRIX
             <ArrowUpRight className="size-3.5" />
@@ -53,8 +55,8 @@ export function RootLayout() {
             <Link
               key={item.to}
               to={item.to}
-              className={`text-[13px] whitespace-nowrap transition ${
-                isActive(item.to) ? 'font-medium text-ink' : 'text-ink2'
+              className={`text-body whitespace-nowrap transition ${
+                isActive(item.to) ? 'font-extrabold text-ink' : 'font-medium text-ink2'
               }`}
             >
               {item.label}

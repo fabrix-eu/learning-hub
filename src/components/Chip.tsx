@@ -19,7 +19,7 @@ export function Chip({
   const style = tone in TONES ? TONES[tone as keyof typeof TONES] : tone;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[12px] leading-none font-medium whitespace-nowrap ${style} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-fx-sm px-3 py-1.5 text-[12.5px] leading-none font-bold whitespace-nowrap ${style} ${className}`}
     >
       {children}
     </span>

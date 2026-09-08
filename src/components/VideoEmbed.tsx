@@ -44,9 +44,9 @@ export function VideoEmbed({ resource }: { resource: Resource }) {
         className="size-full object-cover transition group-hover:scale-[1.02]"
       />
       <span className="absolute inset-0 flex items-center justify-center bg-ink/25">
-        <PlayCircle className="size-14 text-white drop-shadow" strokeWidth={1.2} />
+        <PlayCircle className="size-14 text-white drop-shadow" strokeWidth={1.6} />
       </span>
-      <span className="absolute bottom-3 left-3 rounded-md bg-ink/75 px-2 py-1 font-mono text-[10.5px] tracking-[0.08em] text-white uppercase">
+      <span className="absolute bottom-3 left-3 rounded-fx-sm bg-violet px-2.5 py-1.5 text-label text-white uppercase">
         {resource.cta_label}
         {resource.language !== 'en' && ` · ${languageLabel(resource.language)}`}
       </span>

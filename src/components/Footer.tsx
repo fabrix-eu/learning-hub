@@ -46,14 +46,14 @@ export function Footer() {
           {/* self-start: in a flex column the img would otherwise stretch to the
               column width and centre the artwork inside it. */}
           <img src="/fabrix-logo.svg" alt="FABRIX" className="h-6 w-auto self-start" />
-          <p className="max-w-sm text-[12.5px] leading-relaxed text-muted">
+          <p className="max-w-sm text-small text-muted">
             Practical knowledge on circular textile and clothing production, produced by the FABRIX
             project partners.
           </p>
         </div>
 
         <div className="flex flex-col gap-4 sm:ml-auto sm:items-end">
-          <nav className="flex flex-wrap gap-4 text-[12.5px] text-ink2">
+          <nav className="flex flex-wrap gap-4 text-small font-medium text-ink2">
             {LINKS.map((link) => (
               <a key={link.label} href={link.href} className="hover:text-ink">
                 {link.label}
@@ -68,7 +68,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`FABRIX on ${social.label}`}
-                className="flex size-9 items-center justify-center rounded-fx-sm border border-line text-ink2 transition hover:border-line2 hover:text-ink"
+                className="flex size-9 items-center justify-center rounded-fx-sm border border-line text-ink2 transition hover:border-violet hover:text-violet"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -96,7 +96,7 @@ export function Footer() {
             className="h-9 w-auto flex-none rounded-[3px]"
           />
           <div className="max-w-3xl">
-            <p className="text-[12.5px] font-semibold text-ink">Funded by the European Union</p>
+            <p className="text-small font-bold text-ink">Funded by the European Union</p>
             <p className="mt-1.5 text-[12px] leading-relaxed text-muted">
               FABRIX has received funding from the European Union’s Horizon Europe Programme, under
               grant agreement No. 101135638. Views and opinions expressed are however those of the

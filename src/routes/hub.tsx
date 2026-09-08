@@ -60,14 +60,14 @@ export function HubPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-10">
-      <h1 className="max-w-3xl text-[clamp(26px,3.4vw,34px)] leading-[1.15] tracking-[-0.02em]">
+      <h1 className="max-w-4xl text-display sm:text-hero">
         Practical knowledge for circular textile businesses
       </h1>
-      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink2">
+      <p className="mt-5 max-w-2xl text-lead text-ink2">
         Circular business models, EU regulation, carbon footprint, local production, running a community
         event — written by the FABRIX partners for makers and the people who support them.
       </p>
-      <p className="mt-4 mb-7 flex items-center gap-2 text-[12.5px] text-muted">
+      <p className="mt-5 mb-8 flex items-center gap-2 text-small text-muted">
         <span className="size-1.5 rounded-full bg-green" aria-hidden />
         {topics.length} topics live · adding more each month
       </p>
@@ -87,7 +87,7 @@ export function HubPage() {
           onChange={(value) => set({ type: value })}
           options={Object.entries(TYPE_LABELS).map(([value, label]) => ({ value: value as TopicType, label }))}
         />
-        <label className="ml-auto flex items-center gap-2 rounded-full border border-line2 bg-card px-3.5 py-1.5">
+        <label className="ml-auto flex items-center gap-2 rounded-full border border-line2 bg-card px-3.5 py-2">
           <Search className="size-3.5 text-muted" />
           <input
             type="search"
@@ -95,12 +95,12 @@ export function HubPage() {
             onChange={(event) => set({ q: event.target.value || undefined })}
             placeholder="Search the hub"
             aria-label="Search the hub"
-            className="w-40 bg-transparent text-[12.5px] outline-none placeholder:text-muted"
+            className="w-40 bg-transparent text-small outline-none placeholder:text-muted"
           />
         </label>
       </div>
 
-      <div className="mb-7 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {[
           // A category with nothing published in it is dead weight, not honesty.
           ...categories.filter((category) => countFor(category.key) > 0),
@@ -114,16 +114,16 @@ export function HubPage() {
                 type="button"
                 aria-pressed={active}
                 onClick={() => set({ cat: active ? undefined : category.key })}
-                className={`flex items-center gap-3 rounded-xl border bg-card p-3.5 text-left transition hover:-translate-y-px ${
-                  active ? 'border-ink shadow-[inset_0_0_0_1px_var(--color-ink)]' : 'border-line'
+                className={`flex items-center gap-3.5 rounded-fx border p-4 text-left transition hover:-translate-y-px ${
+                  active ? 'border-violet bg-violet' : 'border-line bg-card hover:border-line2'
                 }`}
               >
-                <CategoryIcon icon={category.icon} accent={category.accent} />
+                <CategoryIcon icon={category.icon} accent={category.accent} on={active} />
                 <span className="min-w-0">
-                  <span className="block font-display text-[13.5px] text-ink">
+                  <span className={`block text-body font-bold ${active ? 'text-white' : 'text-ink'}`}>
                     {category.label_short ?? category.label}
                   </span>
-                  <span className="block text-[11.5px] text-muted">
+                  <span className={`block text-small ${active ? 'text-white/75' : 'text-muted'}`}>
                     {category.key === FEATURED ? 'this month' : `${countFor(category.key)} topics`}
                   </span>
                 </span>
@@ -134,7 +134,7 @@ export function HubPage() {
       </div>
 
       {matches.length === 0 && (
-        <p className="rounded-xl border border-line bg-card p-8 text-center text-[13.5px] text-ink2">
+        <p className="rounded-fx-lg border-2 border-dashed border-line2 p-10 text-center text-body text-ink2">
           No topics match those filters.{' '}
           <button type="button" className="text-violet-ink underline" onClick={() => navigate({ search: {} })}>
             Clear them
@@ -156,9 +156,9 @@ export function HubPage() {
 
 function Grid({ topics, label }: { topics: Topic[]; label: string }) {
   return (
-    <section className="mb-8">
-      <h2 className="mb-3 font-mono text-[10.5px] tracking-[0.11em] text-muted uppercase">{label}</h2>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="mb-10">
+      <h2 className="mb-3.5 text-label text-muted uppercase">{label}</h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {topics.map((topic) => (
           <TopicCard key={topic.id} topic={topic} />
         ))}

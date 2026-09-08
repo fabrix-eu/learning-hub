@@ -15,28 +15,28 @@ export function PartnersPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-10">
-      <h1 className="text-[clamp(26px,3.4vw,34px)] leading-[1.15] tracking-[-0.02em]">The partners behind the hub</h1>
-      <p className="mt-3 mb-8 max-w-2xl text-[15px] leading-relaxed text-ink2">
+      <h1 className="max-w-3xl text-display sm:text-hero">The partners behind the hub</h1>
+      <p className="mt-5 mb-9 max-w-2xl text-lead text-ink2">
         Everything here was written by an organisation working on circular textile in a European city — not by
         a content team. Each entry is signed.
       </p>
 
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <ul className="grid gap-4 sm:grid-cols-2">
         {partners.map((partner) => (
           <li key={partner.key}>
             <Link
               to="/partners/$key"
               params={{ key: partner.key }}
-              className="flex h-full flex-col gap-2 rounded-xl border border-line bg-card p-5 transition hover:-translate-y-px hover:border-line2"
+              className="flex h-full flex-col gap-2 rounded-fx border border-line bg-card p-5 transition hover:-translate-y-px hover:border-line2"
             >
               {partner.logo && <PartnerLogo partner={partner} />}
-              <p className="font-display text-[17px] tracking-[-0.01em] text-ink">{partner.name}</p>
-              <p className="text-[12px] text-muted">
+              <p className="text-heading text-ink">{partner.name}</p>
+              <p className="text-small text-muted">
                 {[partner.city, partner.country].filter(Boolean).join(' · ')}
                 {' · '}
                 {count(partner.key)} contribution{count(partner.key) > 1 ? 's' : ''}
               </p>
-              {partner.blurb && <p className="text-[13px] leading-relaxed text-ink2">{partner.blurb}</p>}
+              {partner.blurb && <p className="text-small text-ink2">{partner.blurb}</p>}
             </Link>
           </li>
         ))}

@@ -15,33 +15,36 @@ export function TopicCard({ topic }: { topic: Topic }) {
     <Link
       to="/topics/$slug"
       params={{ slug: topic.slug }}
-      className="group flex flex-col gap-3 rounded-xl border border-line bg-card p-4 transition hover:-translate-y-px hover:border-line2 hover:shadow-[0_8px_24px_-14px_rgba(35,35,43,0.25)]"
+      className="group flex flex-col gap-3.5 rounded-fx border border-line bg-card p-5 transition hover:-translate-y-px hover:border-line2 hover:shadow-[0_8px_24px_-14px_rgba(26,26,34,0.25)]"
     >
       <div className="flex gap-3">
         <CategoryIcon icon={category?.icon ?? null} accent={category?.accent ?? 'violet'} />
         <div className="min-w-0">
-          <h3 className="text-[16px] leading-snug tracking-[-0.005em] text-ink group-hover:text-violet-ink">
-            {topic.title}
-          </h3>
-          <p className="mt-1 line-clamp-3 text-[13.5px] leading-relaxed text-ink2">{topic.summary}</p>
+          <h3 className="text-heading text-ink group-hover:text-violet-ink">{topic.title}</h3>
+          <p className="mt-2 line-clamp-3 text-small text-ink2">{topic.summary}</p>
         </div>
       </div>
 
-      <div className="mt-auto flex flex-wrap items-center gap-1.5">
-        <Chip tone="outline">{typeLabel(topic.type)}</Chip>
-        {video && (
-          <Chip tone="violet">
-            <PlayCircle className="size-3" />
-            {video.language === 'en' ? 'Video' : `Video · ${languageLabel(video.language)}`}
-          </Chip>
-        )}
-        {downloads.length > 0 && <Chip>{downloads.length} download{downloads.length > 1 ? 's' : ''}</Chip>}
-        <span className="ml-auto flex items-center gap-1 text-[12px] text-muted">
+      {/* Chips and byline are two rows, not one wrapping row: at the current
+          chip size the byline fell to its own line on some cards and not on
+          others, which left a grid of cards that never lined up. */}
+      <div className="mt-auto flex flex-col gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
+          <Chip tone="outline">{typeLabel(topic.type)}</Chip>
+          {video && (
+            <Chip tone="violet">
+              <PlayCircle className="size-3" />
+              {video.language === 'en' ? 'Video' : `Video · ${languageLabel(video.language)}`}
+            </Chip>
+          )}
+          {downloads.length > 0 && <Chip>{downloads.length} download{downloads.length > 1 ? 's' : ''}</Chip>}
+        </div>
+        <span className="flex items-center gap-1.5 border-t border-line pt-2.5 text-[12.5px] text-muted">
           {partner?.short && <span>{partner.short}</span>}
           {topic.read_time ? (
             <>
               <span aria-hidden>·</span>
-              <Clock className="size-3" />
+              <Clock className="size-3.5" />
               {topic.read_time} min
             </>
           ) : null}

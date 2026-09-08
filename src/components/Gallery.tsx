@@ -31,7 +31,7 @@ const large = (photo: Photo) =>
 function Caption({ photo, tone }: { photo: Photo; tone: 'light' | 'dark' }) {
   if (!photo.caption && !photo.credit) return null;
   return (
-    <figcaption className={`mt-2 text-[13px] leading-relaxed ${tone === 'dark' ? 'text-white/80' : 'text-ink2'}`}>
+    <figcaption className={`mt-2 text-small ${tone === 'dark' ? 'text-white/80' : 'text-ink2'}`}>
       {photo.caption}
       {photo.credit && (
         <span className={tone === 'dark' ? 'text-white/50' : 'text-muted'}>
@@ -130,7 +130,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
             )}
 
             {photos.length > 1 && (
-              <div className="mt-4 flex items-center gap-3 font-mono text-[11px] tracking-[0.08em] text-white/60">
+              <div className="mt-4 flex items-center gap-3 text-label text-white/60">
                 <button type="button" onClick={() => move(-1)} aria-label="Previous photo" className="hover:text-white">
                   <ChevronLeft className="size-5" />
                 </button>

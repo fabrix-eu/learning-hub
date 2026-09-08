@@ -14,7 +14,7 @@ export function FilterChips<T extends string>({
 }) {
   return (
     <>
-      <span className="mr-0.5 font-mono text-[10.5px] tracking-[0.1em] text-muted uppercase">{label}</span>
+      <span className="mr-0.5 text-label text-muted uppercase">{label}</span>
       {allLabel && (
         <Chip active={value === undefined} onClick={() => onChange(undefined)}>
           {allLabel}
@@ -39,8 +39,8 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full border px-3 py-1.5 text-[12.5px] transition ${
-        active ? 'border-ink bg-ink text-white' : 'border-line2 bg-card text-ink2 hover:border-ink/30'
+      className={`rounded-full border px-4 py-2 text-small font-bold transition ${
+        active ? 'border-violet bg-violet text-white' : 'border-line2 bg-card text-ink2 hover:border-violet'
       }`}
     >
       {children}
