@@ -81,7 +81,6 @@ Follow `/dev-fullstack-ruby-react` and the sibling `platform-front`; the deltas 
   WCAG AA on a public reading site (the comment in `index.css` says why).
   *(Before August 2026 the tokens were the prototype crosswalk — Archia + IBM Plex Sans, 400-weight
   headings. Those fonts are gone from `public/fonts`; nothing should reference them.)*
-
 - **View state lives in the URL.** Filters, category, search and kind are TanStack Router search
   params — never `useState`. A filtered hub must be a shareable link.
 - **Article bodies are partner HTML**, converted from `.docx`. They arrive as bare `h2/h3/p/ul/table`
@@ -129,9 +128,16 @@ Content owner after the project's 2026 end: **Alexandra Korey (TCBL)**.
 
 `back.fabrixproject.eu` allows `https://learn.fabrixproject.eu`, `http://localhost:5173` and
 `http://localhost:3000` (`CORS_ORIGIN` in `/home/deploy/docker/fabrix-cms/.env` on **rdmpr-four**,
-wired through `rdmpr-infra/apps/fabrix-cms/docker-compose.yml`). **Dev runs on 5173** for that
-reason. Serving the built site from any other origin fails every request with no CORS header —
-add the origin to that `.env` and restart the container rather than working around it.
+wired through `rdmpr-infra/apps/fabrix-cms/docker-compose.yml`).
+
+**Dev does not depend on that list.** The browser calls `/cms` on its own origin and the vite proxy
+forwards to `VITE_DIRECTUS_URL` (`vite.config.ts`), so no CORS rule applies and `npm run dev` works
+on whatever port it lands on. `src/lib/directus.ts` picks the proxy in dev unless `VITE_DIRECTUS_URL`
+is itself local — which is how you point at `scripts/mock-directus.js`.
+
+What still needs the allow-list is a **built** bundle fetching Directus straight from the browser:
+`npm run preview` on 4173 fails every request with no CORS header. Add the origin to that `.env` and
+restart the container rather than working around it.
 
 ## Gates
 

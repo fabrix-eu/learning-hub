@@ -2,8 +2,19 @@ import { createDirectus, rest, readItems, readItem, createItem } from '@directus
 import { queryOptions } from '@tanstack/react-query';
 import type { Category, Partner, Topic, ToolEntry } from './types';
 
-export const DIRECTUS_URL: string =
-  import.meta.env.VITE_DIRECTUS_URL || 'https://back.fabrixproject.eu';
+/*
+ * In dev the browser never calls Directus directly: it calls `/cms` on its own
+ * origin and the vite proxy forwards to VITE_DIRECTUS_URL, so no CORS rule
+ * applies and the dev server can run on any port. A VITE_DIRECTUS_URL that is
+ * already local — scripts/mock-directus.js — is used as-is, no proxy needed.
+ * The build and the prerender use the absolute URL.
+ */
+const CONFIGURED = import.meta.env.VITE_DIRECTUS_URL;
+const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(CONFIGURED ?? '');
+
+export const DIRECTUS_URL: string = import.meta.env.DEV
+  ? (isLocal ? CONFIGURED : `${window.location.origin}/cms`)
+  : CONFIGURED || 'https://back.fabrixproject.eu';
 
 export const PLATFORM_URL: string =
   import.meta.env.VITE_PLATFORM_URL || 'https://platform.fabrixproject.eu';
