@@ -3,7 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeft, ArrowUpRight, ChevronRight, Clock, ExternalLink } from 'lucide-react';
 import { PLATFORM_URL, topicQueryOptions } from '../lib/directus';
 import { useDocumentTitle } from '../lib/useDocumentTitle';
-import { audienceLabel, typeLabel } from '../lib/taxonomy';
+import { ACCENT_BLOCK, ACCENT_TEXT, audienceLabel, typeLabel } from '../lib/taxonomy';
 import type { Author, Category, Partner } from '../lib/types';
 import { Chip } from '../components/Chip';
 import { DownloadList } from '../components/DownloadList';
@@ -17,6 +17,7 @@ export function TopicPage() {
   const { data: topic } = useSuspenseQuery(topicQueryOptions(slug));
 
   const category = topic.category as Category;
+  const accent = category?.accent ?? 'violet';
   const partner = topic.partner as Partner;
   const authors = (topic.authors ?? []).map((a) => a.authors_id).filter(Boolean) as Author[];
   const video = topic.resources?.find((r) => r.kind === 'video' && r.url);
@@ -32,38 +33,52 @@ export function TopicPage() {
         Back to the hub
       </Link>
 
+      {/*
+        The masthead. Title and standfirst set large on the category's own
+        colour, so a reader knows what the piece is for before scrolling —
+        the magazine opener Alexandra asked for. The summary lives here now
+        rather than under the video: it is the promise, not a caption.
+      */}
+      <header className={`mb-10 rounded-fx-lg px-6 py-9 sm:px-10 sm:py-12 ${ACCENT_BLOCK[accent]}`}>
+        <p className="flex items-center gap-1.5 text-label uppercase">
+          <Link
+            to="/"
+            search={{ cat: category?.key }}
+            className={`${ACCENT_TEXT[accent]} hover:underline`}
+          >
+            {category?.label_short ?? category?.label}
+          </Link>
+          <ChevronRight className={`size-3 ${ACCENT_TEXT[accent]}`} />
+          <span className="text-ink2">{typeLabel(topic.type)}</span>
+        </p>
+
+        <h1 className="mt-5 max-w-[20ch] text-title sm:text-display">{topic.title}</h1>
+
+        <p className="mt-6 max-w-measure text-deck text-ink2">{topic.summary}</p>
+
+        <div className="mt-8 flex flex-wrap gap-1.5">
+          <Chip tone="outline">{typeLabel(topic.type)}</Chip>
+          {topic.audiences?.map((audience) => (
+            <Chip key={audience} tone="outline">
+              For {audienceLabel(audience).toLowerCase()}
+            </Chip>
+          ))}
+          {topic.read_time ? (
+            <Chip tone="outline">
+              <Clock className="size-3" />
+              {topic.read_time} min read
+            </Chip>
+          ) : null}
+        </div>
+      </header>
+
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
         <article>
-          <p className="mb-4 flex items-center gap-1.5 text-label text-muted uppercase">
-            <Link to="/" search={{ cat: category?.key }} className="hover:text-ink">
-              {category?.label_short ?? category?.label}
-            </Link>
-            <ChevronRight className="size-3" />
-            <span>{typeLabel(topic.type)}</span>
-          </p>
-
-          <h1 className="max-w-[22ch] text-title sm:text-display">{topic.title}</h1>
-
-          <div className="mt-5 mb-7 flex flex-wrap gap-1.5">
-            <Chip tone="outline">{typeLabel(topic.type)}</Chip>
-            {topic.audiences?.map((audience) => (
-              <Chip key={audience}>For {audienceLabel(audience).toLowerCase()}</Chip>
-            ))}
-            {topic.read_time ? (
-              <Chip>
-                <Clock className="size-3" />
-                {topic.read_time} min read
-              </Chip>
-            ) : null}
-          </div>
-
           {video && (
             <div className="mb-6">
               <VideoEmbed resource={video} />
             </div>
           )}
-
-          <p className="mb-8 max-w-measure text-lead font-medium text-ink">{topic.summary}</p>
 
           {/* Partner-authored HTML, converted from the contribution .docx. */}
           <div className="fx-prose" dangerouslySetInnerHTML={{ __html: topic.body }} />

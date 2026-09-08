@@ -34,6 +34,24 @@ export const RESOURCE_LABELS: Record<ResourceKind, string> = {
  * Tailwind cannot see class names built at runtime, so every accent pairing is
  * written out here in full.
  */
+export const ACCENT_BLOCK: Record<Accent, string> = {
+  green: 'bg-green-soft',
+  amber: 'bg-amber-soft',
+  teal: 'bg-teal-soft',
+  rose: 'bg-rose-soft',
+  indigo: 'bg-indigo-soft',
+  violet: 'bg-violet-soft',
+};
+
+export const ACCENT_TEXT: Record<Accent, string> = {
+  green: 'text-green',
+  amber: 'text-amber',
+  teal: 'text-teal',
+  rose: 'text-rose',
+  indigo: 'text-indigo',
+  violet: 'text-violet-ink',
+};
+
 export const ACCENT_CHIP: Record<Accent, string> = {
   green: 'bg-green-soft text-green',
   amber: 'bg-amber-soft text-amber',

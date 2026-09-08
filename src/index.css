@@ -97,6 +97,12 @@
      a public reading site, not app chrome: its "small" carries the author, the
      duration and the captions, and 12.5px was too quiet for that. Raising the
      four tokens lifts every screen at once — that is what they are for. */
+  /* The standfirst of an article masthead: bigger than a lede, still text
+     and not a heading, so it keeps a reading line-height. */
+  --text-deck: 21px;
+  --text-deck--line-height: 1.48;
+  --text-deck--font-weight: 500;
+
   --text-lead: 18px;
   --text-lead--line-height: 1.55;
   --text-body: 15px;
