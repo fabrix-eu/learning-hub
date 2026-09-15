@@ -290,5 +290,29 @@ for (const [collection, field, template] of FIELD_TEMPLATES) {
   );
 }
 
+/*
+ * Sidebar. back.fabrixproject.eu also holds the FABRIX website's collections
+ * (under a "Website" folder, created by fabrix-eu/website). The hub's own
+ * collections — junctions included — go under a "Learning Hub" folder.
+ * `partners` stays at the root: both sites read it. A folder is a collection
+ * with no table; grouping changes only the sidebar, not the data, the API or
+ * the permissions. PATCHed on every run.
+ */
+const FOLDER = "learning_hub";
+const HUB_COLLECTIONS = ["topics", "categories", "authors", "resources", "feedback", "topics_authors", "topics_files", "topics_related"];
+const ROOT_ORDER = [FOLDER, "website", "partners"];
+
+console.log("→ sidebar folder");
+await ensure(FOLDER, () =>
+  api("POST", "/collections", { collection: FOLDER, meta: { icon: "school", note: "Content of learn.fabrixproject.eu.", collapse: "open" }, schema: null }),
+);
+for (const [index, collection] of HUB_COLLECTIONS.entries()) {
+  await ensure(`${collection} → ${FOLDER}`, () => api("PATCH", `/collections/${collection}`, { meta: { group: FOLDER, sort: index + 1 } }));
+}
+for (const [index, collection] of ROOT_ORDER.entries()) {
+  // The website folder only exists once fabrix-eu/website has bootstrapped; skip it quietly otherwise.
+  await api("PATCH", `/collections/${collection}`, { meta: { sort: index + 1 } }).catch(() => null);
+}
+
 console.log("\nDone. Next: DIRECTUS_TOKEN=… npm run directus:seed");
 console.log("Public read access is set by scripts/directus-permissions.js.");
