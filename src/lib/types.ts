@@ -47,6 +47,9 @@ export interface Photo {
   image: string;
   caption: string | null;
   credit: string | null;
+  /** Pixel size of the file, to reserve the photo's box before it loads. */
+  width: number | null;
+  height: number | null;
 }
 
 /**
@@ -58,7 +61,7 @@ export interface GalleryItem {
   id: number;
   caption: string | null;
   sort: number | null;
-  directus_files_id: { id: string; credit: string | null } | null;
+  directus_files_id: { id: string; credit: string | null; width?: number | null; height?: number | null } | null;
 }
 
 export interface ExternalLink {

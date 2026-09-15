@@ -50,6 +50,8 @@ const ARTICLE_FIELDS = [
   'resources.*',
   'gallery.id', 'gallery.caption', 'gallery.sort',
   'gallery.directus_files_id.id', 'gallery.directus_files_id.credit',
+  // Pixel size, so each photo's box is reserved before it loads (BlurImage).
+  'gallery.directus_files_id.width', 'gallery.directus_files_id.height',
   'related.related_topics_id.id', 'related.related_topics_id.slug', 'related.related_topics_id.title',
 ];
 

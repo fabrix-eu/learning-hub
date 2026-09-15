@@ -3,6 +3,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { assetUrl } from '../lib/directus';
 import type { GalleryItem, Photo } from '../lib/types';
+import { BlurImage } from './BlurImage';
 
 /**
  * Directus hands the gallery over as junction rows. Flatten them into what the
@@ -18,15 +19,17 @@ const toPhotos = (items: GalleryItem[]): Photo[] =>
             image: item.directus_files_id.id,
             caption: item.caption,
             credit: item.directus_files_id.credit,
+            width: item.directus_files_id.width ?? null,
+            height: item.directus_files_id.height ?? null,
           }]
         : [],
     );
 
-const thumb = (photo: Photo) =>
-  assetUrl(photo.image, { width: '720', height: '540', fit: 'cover', format: 'webp', quality: '75' }) ?? undefined;
+const THUMB = { width: '720', height: '540', fit: 'cover', quality: '75' };
+const LARGE = { width: '1600', quality: '85' };
 
-const large = (photo: Photo) =>
-  assetUrl(photo.image, { width: '1600', format: 'webp', quality: '85' }) ?? undefined;
+/** The grid thumbnail, already in the browser cache: the lightbox blurs it while the large one loads. */
+const thumbUrl = (photo: Photo) => assetUrl(photo.image, { ...THUMB, format: 'webp' }) ?? undefined;
 
 function Caption({ photo, tone }: { photo: Photo; tone: 'light' | 'dark' }) {
   if (!photo.caption && !photo.credit) return null;
@@ -67,7 +70,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
             onClick={() => setIndex(0)}
             className="block w-full cursor-zoom-in overflow-hidden rounded-fx border border-line"
           >
-            <img src={large(photos[0])} alt={photos[0].caption ?? ''} loading="lazy" className="w-full" />
+            <BlurImage id={photos[0].image} transform={LARGE} dims={photos[0]} alt={photos[0].caption ?? ''} className="h-auto w-full" />
           </button>
           <Caption photo={photos[0]} tone="light" />
         </figure>
@@ -81,11 +84,12 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                   onClick={() => setIndex(i)}
                   className="group block w-full cursor-zoom-in overflow-hidden rounded-fx border border-line"
                 >
-                  <img
-                    src={thumb(photo)}
+                  <BlurImage
+                    id={photo.image}
+                    transform={THUMB}
                     alt={photo.caption ?? ''}
-                    loading="lazy"
-                    className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]"
+                    frameClassName="aspect-[4/3] w-full transition group-hover:scale-[1.02]"
+                    className="h-full w-full object-cover"
                   />
                 </button>
                 <Caption photo={photo} tone="light" />
@@ -119,11 +123,18 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
           >
             <Dialog.Title className="sr-only">{open?.caption ?? 'Photo'}</Dialog.Title>
             {open && (
-              <figure className="flex max-h-full max-w-5xl flex-col">
-                <img
-                  src={large(open)}
+              <figure className="flex max-h-full max-w-5xl flex-col items-center">
+                {/* Keyed on the photo so moving to the next one restarts the blur, not a blank frame. */}
+                <BlurImage
+                  key={open.id}
+                  id={open.image}
+                  transform={LARGE}
+                  dims={open}
+                  placeholderSrc={thumbUrl(open)}
+                  loading="eager"
                   alt={open.caption ?? ''}
-                  className="max-h-[78vh] w-auto rounded-fx bg-white object-contain"
+                  frameClassName="inline-block rounded-fx bg-white"
+                  className="h-auto max-h-[78vh] w-auto max-w-full object-contain"
                 />
                 <Caption photo={open} tone="dark" />
               </figure>

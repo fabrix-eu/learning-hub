@@ -36,11 +36,13 @@ export function VideoEmbed({ resource }: { resource: Resource }) {
     <button
       type="button"
       onClick={() => setPlaying(true)}
-      className="group relative block aspect-video w-full overflow-hidden rounded-fx border border-line"
+      className="group relative block aspect-video w-full overflow-hidden rounded-fx border border-line bg-panel"
     >
+      {/* YouTube's thumbnail is not a Directus file, so no blurred preview: the panel colour holds the frame. */}
       <img
         src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
         alt=""
+        loading="lazy"
         className="size-full object-cover transition group-hover:scale-[1.02]"
       />
       <span className="absolute inset-0 flex items-center justify-center bg-ink/25">
