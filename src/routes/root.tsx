@@ -2,6 +2,7 @@ import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import { PLATFORM_URL } from '../lib/directus';
 import { Footer } from '../components/Footer';
+import { SurfaceSwitcher } from '../components/SurfaceSwitcher';
 
 const NAV = [
   { to: '/', label: 'Topics' },
@@ -19,11 +20,13 @@ export function RootLayout() {
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-line bg-bg/95 backdrop-blur">
         <div className="mx-auto flex h-topbar max-w-6xl items-center gap-4 px-5">
-          <Link to="/" className="flex flex-none items-center gap-2.5">
-            <img src="/fabrix-logo.svg" alt="FABRIX" className="h-7 w-auto" />
+          <div className="flex flex-none items-center gap-2.5">
+            <Link to="/" aria-label="Learning Hub home">
+              <img src="/fabrix-logo.svg" alt="FABRIX" className="h-7 w-auto" />
+            </Link>
             <span className="h-5 w-px bg-line2" aria-hidden />
-            <span className="text-lead font-medium whitespace-nowrap text-ink2">Learning Hub</span>
-          </Link>
+            <SurfaceSwitcher />
+          </div>
 
           <nav className="ml-6 hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
