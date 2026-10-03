@@ -12,6 +12,7 @@
     "content:extract": "node scripts/extract-docx.js",
     "directus:bootstrap": "node --env-file-if-exists=.env scripts/directus-bootstrap.js",
     "directus:permissions": "node --env-file-if-exists=.env scripts/directus-permissions.js",
+    "directus:flow": "node --env-file-if-exists=.env scripts/directus-flow.js",
     "directus:seed": "node --env-file-if-exists=.env scripts/directus-seed.js",
     "dev:mock": "node scripts/mock-directus.js",
     "directus:logos": "node --env-file-if-exists=.env scripts/directus-link-logos.js"

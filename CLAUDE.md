@@ -108,10 +108,11 @@ editing in Directus, the seeder is a one-way bootstrap, not a sync.
 
 ## Publishing a topic
 
-Editors work in Directus (`draft` → `in_review` → `published`), then press **Build & deploy** in the
-header of the `topics` collection. That is a manual Directus flow (`a32d72ec`) whose single operation
-POSTs `{"event_type":"content-updated"}` to GitHub's `repository_dispatch`, which runs this repo's
-Deploy workflow.
+Editors work in Directus (`draft` → `in_review` → `published`), then press **Build & deploy — Learning
+Hub** in the header of any hub collection (`topics`, `resources`, `categories`, `authors`, `partners`).
+That is a manual Directus flow (`npm run directus:flow`, idempotent) whose single operation POSTs
+`{"event_type":"content-updated"}` to GitHub's `repository_dispatch`, which runs this repo's Deploy
+workflow. `partners` is shared, so its header also shows the website's button.
 
 **Prerendering means published content must be built to be visible** — saving in Directus alone
 changes nothing on the public site. That is deliberate: an editor finishes an article, then pushes
