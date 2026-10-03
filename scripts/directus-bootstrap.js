@@ -201,6 +201,29 @@ for (const rel of RELATIONS) {
   });
 }
 
+/*
+ * A `file` field is a plain uuid column until a relation points it at
+ * directus_files. Without one, picking a file in the app does nothing on save —
+ * the item comes back with the field still null.
+ */
+const FILE_FIELDS = [
+  ["resources", "file"],
+  ["topics", "cover"],
+  ["authors", "avatar"],
+];
+
+console.log("→ relations (files)");
+for (const [collection, field] of FILE_FIELDS) {
+  await ensure(`${collection}.${field} → directus_files`, () =>
+    api("POST", "/relations", {
+      collection,
+      field,
+      related_collection: "directus_files",
+      schema: { on_delete: "SET NULL" },
+    }),
+  );
+}
+
 console.log("→ relations (many-to-many)");
 for (const j of JUNCTIONS) {
   await ensure(j.name, async () => {
