@@ -33,6 +33,10 @@ jobs:
         env:
           VITE_DIRECTUS_URL: https://back.fabrixproject.eu
           VITE_PLATFORM_URL: https://platform.fabrixproject.eu
+          # Same Matomo as the platform (site 3) and the website (site 4); the hub is site 5.
+          # Written here, not in repo variables, so a missing value is visible.
+          VITE_MATOMO_URL: https://stats.daysplit.com/
+          VITE_MATOMO_SITE_ID: "5"
           SITE_URL: https://learn.fabrixproject.eu
       - uses: actions/upload-pages-artifact@v3
         with:

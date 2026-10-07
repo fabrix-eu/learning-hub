@@ -13,7 +13,7 @@ const CONFIGURED = import.meta.env.VITE_DIRECTUS_URL;
 const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(CONFIGURED ?? '');
 
 export const DIRECTUS_URL: string = import.meta.env.DEV
-  ? (isLocal ? CONFIGURED : `${window.location.origin}/cms`)
+  ? (isLocal && CONFIGURED ? CONFIGURED : `${window.location.origin}/cms`)
   : CONFIGURED || 'https://back.fabrixproject.eu';
 
 export const PLATFORM_URL: string =
