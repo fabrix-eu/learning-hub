@@ -59,6 +59,15 @@ straight out of a bulk upload has none yet and shows only its thumbnail.
 Partner logos live on `partners.logo`. `npm run directus:logos` attaches the ones already sitting
 in the file library to their partner row, and never overwrites one that is set.
 
+## Sharing cards
+
+`scripts/prerender.js` writes the Open Graph and Twitter tags of every page. The image is the
+topic's **first gallery photo**, else the **first inline picture** of its body, else the hub banner
+`public/og-image.jpg` (1280×720). Directus crops the photo to 1200×630 through the Public role.
+`index.html` carries the same defaults for the dev server and the `404.html` shell that GitHub
+Pages hands to client-only routes (partner profiles). `useDocumentTitle` keeps the tags in step on
+client navigation; crawlers only ever see the prerendered head.
+
 ## Compass routing
 
 `topics.compass_modules[]` holds keys from the Compass Assessment forms in `platform-back`

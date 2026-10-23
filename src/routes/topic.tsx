@@ -1,7 +1,7 @@
 import { Link, useParams } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeft, ArrowUpRight, ChevronRight, Clock, ExternalLink } from 'lucide-react';
-import { PLATFORM_URL, topicQueryOptions } from '../lib/directus';
+import { PLATFORM_URL, assetUrl, topicQueryOptions } from '../lib/directus';
 import { useDocumentTitle } from '../lib/useDocumentTitle';
 import { ACCENT_BLOCK, ACCENT_TEXT, audienceLabel, typeLabel } from '../lib/taxonomy';
 import type { Author, Category, Partner } from '../lib/types';
@@ -24,7 +24,11 @@ export function TopicPage() {
   const downloads = topic.resources?.filter((r) => r !== video) ?? [];
   const related = (topic.related ?? []).map((r) => r.related_topics_id).filter(Boolean);
 
-  useDocumentTitle(topic.title, topic.summary);
+  // The sharing image, chosen like the prerender does: first gallery photo, else default.
+  const cover = [...(topic.gallery ?? [])]
+    .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
+    .find((item) => item.directus_files_id?.id)?.directus_files_id?.id;
+  useDocumentTitle(topic.title, topic.summary, assetUrl(cover ?? null, { width: '1200', height: '630', fit: 'cover', format: 'jpg' }));
 
   return (
     <main className="mx-auto max-w-6xl px-5 pt-8">
